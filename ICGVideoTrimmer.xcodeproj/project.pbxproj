@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DE4F1F581A67C9BB00478F77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F571A67C9BB00478F77 /* main.m */; };
+		DE4F1F5B1A67C9BB00478F77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F5A1A67C9BB00478F77 /* AppDelegate.m */; };
+		DE4F1F5E1A67C9BB00478F77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F5D1A67C9BB00478F77 /* ViewController.m */; };
+		DE4F1F611A67C9BB00478F77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE4F1F5F1A67C9BB00478F77 /* Main.storyboard */; };
+		DE4F1F631A67C9BB00478F77 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE4F1F621A67C9BB00478F77 /* Images.xcassets */; };
+		DE4F1F661A67C9BB00478F77 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE4F1F641A67C9BB00478F77 /* LaunchScreen.xib */; };
+		DE4F1F721A67C9BB00478F77 /* ICGVideoTrimmerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F711A67C9BB00478F77 /* ICGVideoTrimmerTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DE4F1F6C1A67C9BB00478F77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE4F1F4A1A67C9BB00478F77 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE4F1F511A67C9BB00478F77;
+			remoteInfo = ICGVideoTrimmer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DE4F1F521A67C9BB00478F77 /* ICGVideoTrimmer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ICGVideoTrimmer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE4F1F561A67C9BB00478F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE4F1F571A67C9BB00478F77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DE4F1F591A67C9BB00478F77 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DE4F1F5A1A67C9BB00478F77 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DE4F1F5C1A67C9BB00478F77 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DE4F1F5D1A67C9BB00478F77 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DE4F1F601A67C9BB00478F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DE4F1F621A67C9BB00478F77 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DE4F1F651A67C9BB00478F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		DE4F1F6B1A67C9BB00478F77 /* ICGVideoTrimmerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ICGVideoTrimmerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE4F1F701A67C9BB00478F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE4F1F711A67C9BB00478F77 /* ICGVideoTrimmerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICGVideoTrimmerTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DE4F1F4F1A67C9BB00478F77 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE4F1F681A67C9BB00478F77 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DE4F1F491A67C9BB00478F77 = {
+			isa = PBXGroup;
+			children = (
+				DE4F1F541A67C9BB00478F77 /* ICGVideoTrimmer */,
+				DE4F1F6E1A67C9BB00478F77 /* ICGVideoTrimmerTests */,
+				DE4F1F531A67C9BB00478F77 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DE4F1F531A67C9BB00478F77 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE4F1F521A67C9BB00478F77 /* ICGVideoTrimmer.app */,
+				DE4F1F6B1A67C9BB00478F77 /* ICGVideoTrimmerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DE4F1F541A67C9BB00478F77 /* ICGVideoTrimmer */ = {
+			isa = PBXGroup;
+			children = (
+				DE4F1F591A67C9BB00478F77 /* AppDelegate.h */,
+				DE4F1F5A1A67C9BB00478F77 /* AppDelegate.m */,
+				DE4F1F5C1A67C9BB00478F77 /* ViewController.h */,
+				DE4F1F5D1A67C9BB00478F77 /* ViewController.m */,
+				DE4F1F5F1A67C9BB00478F77 /* Main.storyboard */,
+				DE4F1F621A67C9BB00478F77 /* Images.xcassets */,
+				DE4F1F641A67C9BB00478F77 /* LaunchScreen.xib */,
+				DE4F1F551A67C9BB00478F77 /* Supporting Files */,
+			);
+			path = ICGVideoTrimmer;
+			sourceTree = "<group>";
+		};
+		DE4F1F551A67C9BB00478F77 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE4F1F561A67C9BB00478F77 /* Info.plist */,
+				DE4F1F571A67C9BB00478F77 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DE4F1F6E1A67C9BB00478F77 /* ICGVideoTrimmerTests */ = {
+			isa = PBXGroup;
+			children = (
+				DE4F1F711A67C9BB00478F77 /* ICGVideoTrimmerTests.m */,
+				DE4F1F6F1A67C9BB00478F77 /* Supporting Files */,
+			);
+			path = ICGVideoTrimmerTests;
+			sourceTree = "<group>";
+		};
+		DE4F1F6F1A67C9BB00478F77 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE4F1F701A67C9BB00478F77 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DE4F1F511A67C9BB00478F77 /* ICGVideoTrimmer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE4F1F751A67C9BB00478F77 /* Build configuration list for PBXNativeTarget "ICGVideoTrimmer" */;
+			buildPhases = (
+				DE4F1F4E1A67C9BB00478F77 /* Sources */,
+				DE4F1F4F1A67C9BB00478F77 /* Frameworks */,
+				DE4F1F501A67C9BB00478F77 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ICGVideoTrimmer;
+			productName = ICGVideoTrimmer;
+			productReference = DE4F1F521A67C9BB00478F77 /* ICGVideoTrimmer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DE4F1F6A1A67C9BB00478F77 /* ICGVideoTrimmerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE4F1F781A67C9BB00478F77 /* Build configuration list for PBXNativeTarget "ICGVideoTrimmerTests" */;
+			buildPhases = (
+				DE4F1F671A67C9BB00478F77 /* Sources */,
+				DE4F1F681A67C9BB00478F77 /* Frameworks */,
+				DE4F1F691A67C9BB00478F77 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE4F1F6D1A67C9BB00478F77 /* PBXTargetDependency */,
+			);
+			name = ICGVideoTrimmerTests;
+			productName = ICGVideoTrimmerTests;
+			productReference = DE4F1F6B1A67C9BB00478F77 /* ICGVideoTrimmerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE4F1F4A1A67C9BB00478F77 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = ichigo;
+				TargetAttributes = {
+					DE4F1F511A67C9BB00478F77 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					DE4F1F6A1A67C9BB00478F77 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = DE4F1F511A67C9BB00478F77;
+					};
+				};
+			};
+			buildConfigurationList = DE4F1F4D1A67C9BB00478F77 /* Build configuration list for PBXProject "ICGVideoTrimmer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DE4F1F491A67C9BB00478F77;
+			productRefGroup = DE4F1F531A67C9BB00478F77 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DE4F1F511A67C9BB00478F77 /* ICGVideoTrimmer */,
+				DE4F1F6A1A67C9BB00478F77 /* ICGVideoTrimmerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DE4F1F501A67C9BB00478F77 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE4F1F611A67C9BB00478F77 /* Main.storyboard in Resources */,
+				DE4F1F661A67C9BB00478F77 /* LaunchScreen.xib in Resources */,
+				DE4F1F631A67C9BB00478F77 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE4F1F691A67C9BB00478F77 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DE4F1F4E1A67C9BB00478F77 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE4F1F5E1A67C9BB00478F77 /* ViewController.m in Sources */,
+				DE4F1F5B1A67C9BB00478F77 /* AppDelegate.m in Sources */,
+				DE4F1F581A67C9BB00478F77 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE4F1F671A67C9BB00478F77 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE4F1F721A67C9BB00478F77 /* ICGVideoTrimmerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DE4F1F6D1A67C9BB00478F77 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE4F1F511A67C9BB00478F77 /* ICGVideoTrimmer */;
+			targetProxy = DE4F1F6C1A67C9BB00478F77 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DE4F1F5F1A67C9BB00478F77 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE4F1F601A67C9BB00478F77 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DE4F1F641A67C9BB00478F77 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DE4F1F651A67C9BB00478F77 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DE4F1F731A67C9BB00478F77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DE4F1F741A67C9BB00478F77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DE4F1F761A67C9BB00478F77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ICGVideoTrimmer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DE4F1F771A67C9BB00478F77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ICGVideoTrimmer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DE4F1F791A67C9BB00478F77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ICGVideoTrimmerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ICGVideoTrimmer.app/ICGVideoTrimmer";
+			};
+			name = Debug;
+		};
+		DE4F1F7A1A67C9BB00478F77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ICGVideoTrimmerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ICGVideoTrimmer.app/ICGVideoTrimmer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DE4F1F4D1A67C9BB00478F77 /* Build configuration list for PBXProject "ICGVideoTrimmer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE4F1F731A67C9BB00478F77 /* Debug */,
+				DE4F1F741A67C9BB00478F77 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE4F1F751A67C9BB00478F77 /* Build configuration list for PBXNativeTarget "ICGVideoTrimmer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE4F1F761A67C9BB00478F77 /* Debug */,
+				DE4F1F771A67C9BB00478F77 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DE4F1F781A67C9BB00478F77 /* Build configuration list for PBXNativeTarget "ICGVideoTrimmerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE4F1F791A67C9BB00478F77 /* Debug */,
+				DE4F1F7A1A67C9BB00478F77 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DE4F1F4A1A67C9BB00478F77 /* Project object */;
+}
