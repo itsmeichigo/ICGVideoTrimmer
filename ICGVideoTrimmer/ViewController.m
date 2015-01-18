@@ -7,8 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "ICGVideoTrimmerView.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface ViewController ()
+@interface ViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet ICGVideoTrimmerView *trimmerView;
 
 @end
 
@@ -24,4 +29,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    NSURL *url = [info objectForKey:UIImagePickerControllerMediaURL];
+    AVAsset *asset = [AVAsset assetWithURL:url];
+    [self.trimmerView setAsset:asset];
+    [self.trimmerView resetSubviews];
+}
+
+- (IBAction)selectAsset:(id)sender {
+    UIImagePickerController *myImagePickerController = [[UIImagePickerController alloc] init];
+    myImagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
+    myImagePickerController.mediaTypes =
+    [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+    myImagePickerController.delegate = self;
+    myImagePickerController.editing = NO;
+    [self presentViewController:myImagePickerController animated:YES completion:nil];
+}
 @end

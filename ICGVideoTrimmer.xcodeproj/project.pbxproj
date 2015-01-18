@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CEFE5D21A6BA47100592ABF /* ICGVideoTrimmerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFE5D11A6BA47100592ABF /* ICGVideoTrimmerView.m */; };
+		2CEFE5D41A6BA4A300592ABF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEFE5D31A6BA4A300592ABF /* AVFoundation.framework */; };
+		2CEFE5D61A6C164B00592ABF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEFE5D51A6C164B00592ABF /* MobileCoreServices.framework */; };
 		DE4F1F581A67C9BB00478F77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F571A67C9BB00478F77 /* main.m */; };
 		DE4F1F5B1A67C9BB00478F77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F5A1A67C9BB00478F77 /* AppDelegate.m */; };
 		DE4F1F5E1A67C9BB00478F77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F5D1A67C9BB00478F77 /* ViewController.m */; };
@@ -27,6 +30,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2CEFE5D01A6BA47100592ABF /* ICGVideoTrimmerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGVideoTrimmerView.h; sourceTree = "<group>"; };
+		2CEFE5D11A6BA47100592ABF /* ICGVideoTrimmerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICGVideoTrimmerView.m; sourceTree = "<group>"; };
+		2CEFE5D31A6BA4A300592ABF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2CEFE5D51A6C164B00592ABF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		DE4F1F521A67C9BB00478F77 /* ICGVideoTrimmer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ICGVideoTrimmer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE4F1F561A67C9BB00478F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE4F1F571A67C9BB00478F77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -47,6 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CEFE5D61A6C164B00592ABF /* MobileCoreServices.framework in Frameworks */,
+				2CEFE5D41A6BA4A300592ABF /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,9 +69,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2CEFE5CF1A6BA44D00592ABF /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				2CEFE5D01A6BA47100592ABF /* ICGVideoTrimmerView.h */,
+				2CEFE5D11A6BA47100592ABF /* ICGVideoTrimmerView.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		DE4F1F491A67C9BB00478F77 = {
 			isa = PBXGroup;
 			children = (
+				2CEFE5D51A6C164B00592ABF /* MobileCoreServices.framework */,
+				2CEFE5D31A6BA4A300592ABF /* AVFoundation.framework */,
 				DE4F1F541A67C9BB00478F77 /* ICGVideoTrimmer */,
 				DE4F1F6E1A67C9BB00478F77 /* ICGVideoTrimmerTests */,
 				DE4F1F531A67C9BB00478F77 /* Products */,
@@ -81,6 +101,7 @@
 		DE4F1F541A67C9BB00478F77 /* ICGVideoTrimmer */ = {
 			isa = PBXGroup;
 			children = (
+				2CEFE5CF1A6BA44D00592ABF /* Source */,
 				DE4F1F591A67C9BB00478F77 /* AppDelegate.h */,
 				DE4F1F5A1A67C9BB00478F77 /* AppDelegate.m */,
 				DE4F1F5C1A67C9BB00478F77 /* ViewController.h */,
@@ -220,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE4F1F5E1A67C9BB00478F77 /* ViewController.m in Sources */,
+				2CEFE5D21A6BA47100592ABF /* ICGVideoTrimmerView.m in Sources */,
 				DE4F1F5B1A67C9BB00478F77 /* AppDelegate.m in Sources */,
 				DE4F1F581A67C9BB00478F77 /* main.m in Sources */,
 			);
@@ -412,6 +434,7 @@
 				DE4F1F771A67C9BB00478F77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DE4F1F781A67C9BB00478F77 /* Build configuration list for PBXNativeTarget "ICGVideoTrimmerTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +443,7 @@
 				DE4F1F7A1A67C9BB00478F77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
