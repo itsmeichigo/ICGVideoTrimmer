@@ -11,6 +11,7 @@
 @interface ICGVideoTrimmerView()
 
 @property (strong, nonatomic) UIView *contentView;
+@property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) AVAssetImageGenerator *imageGenerator;
 
 @end
@@ -46,12 +47,12 @@
 {
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
-    [self addSubview:scrollView];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
+    [self addSubview:self.scrollView];
     
-    self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGRectGetHeight(scrollView.frame))];
+    self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.frame), CGRectGetHeight(self.scrollView.frame))];
     [self.contentView setClipsToBounds:YES];
-    [scrollView addSubview:self.contentView];
+    [self.scrollView addSubview:self.contentView];
     
     [self addFrames];
 }
@@ -99,6 +100,7 @@
     if (duration > self.maxLength) {
         CGFloat contentViewFrameWidth = (duration / self.maxLength) * screenWidth;
         [self.contentView setFrame:CGRectMake(0, 0, contentViewFrameWidth, CGRectGetHeight(self.contentView.frame))];
+        [self.scrollView setContentSize:self.contentView.frame.size];
         NSInteger minFramesNeeded = screenWidth / picWidth + 1;
         actualFramesNeeded =  (duration / self.maxLength) * minFramesNeeded;
     } else {
@@ -111,6 +113,7 @@
     for (int i=1; i<actualFramesNeeded; i++){
         
         CMTime time = CMTimeMake(i*durationPerFrame, 600);
+        NSLog(@"Time:%f", i*durationPerFrame);
         
         CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:time actualTime:&actualTime error:&error];
         
@@ -127,8 +130,8 @@
         CGRect currentFrame = tmp.frame;
         currentFrame.origin.x = i*picWidth;
         
-        currentFrame.size.width=picWidth;
-        prefreWidth+=currentFrame.size.width;
+        currentFrame.size.width = picWidth;
+        prefreWidth += currentFrame.size.width;
         
         if( i == actualFramesNeeded-1){
             currentFrame.size.width-=6;
