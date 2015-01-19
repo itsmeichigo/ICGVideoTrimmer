@@ -44,10 +44,13 @@
 
 - (void)resetSubviews
 {
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
     [self addSubview:scrollView];
     
-    self.contentView = [[UIView alloc] initWithFrame:scrollView.frame];
+    self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGRectGetHeight(scrollView.frame))];
+    [self.contentView setClipsToBounds:YES];
     [scrollView addSubview:self.contentView];
     
     [self addFrames];
@@ -56,6 +59,7 @@
 - (void)addFrames
 {
     self.imageGenerator = [AVAssetImageGenerator assetImageGeneratorWithAsset:self.asset];
+    self.imageGenerator.appliesPreferredTrackTransform = YES;
     
     if ([self isRetina]){
         self.imageGenerator.maximumSize = CGSizeMake(self.contentView.frame.size.width*2, self.contentView.frame.size.height*2);
@@ -91,63 +95,52 @@
     
     CGFloat duration = CMTimeGetSeconds([self.asset duration]);
     CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
-    NSInteger minFramesNeeded = screenWidth / picWidth + 1;
-    NSInteger actualFramesNeeded =  (duration / self.maxLength) * minFramesNeeded;
-    
-    NSMutableArray *times = [[NSMutableArray alloc] init];
-    CGFloat durationPerFrame = duration / (actualFramesNeeded*1.0);
-    for (int i=1; i<actualFramesNeeded; i++) {
-        CMTime time = CMTimeMake(i*durationPerFrame, 600);
-        [times addObject:[NSValue valueWithCMTime:time]];
+    NSInteger actualFramesNeeded;
+    if (duration > self.maxLength) {
+        CGFloat contentViewFrameWidth = (duration / self.maxLength) * screenWidth;
+        [self.contentView setFrame:CGRectMake(0, 0, contentViewFrameWidth, CGRectGetHeight(self.contentView.frame))];
+        NSInteger minFramesNeeded = screenWidth / picWidth + 1;
+        actualFramesNeeded =  (duration / self.maxLength) * minFramesNeeded;
+    } else {
+        actualFramesNeeded = screenWidth / picWidth + 1;
     }
     
-    __block int i = 1;
+    CGFloat durationPerFrame = duration / (actualFramesNeeded*1.0);
     
-    [self.imageGenerator generateCGImagesAsynchronouslyForTimes:times
-                                              completionHandler:^(CMTime requestedTime, CGImageRef image, CMTime actualTime,
-                                                                  AVAssetImageGeneratorResult result, NSError *error)
-     {
-         NSString *requestedTimeString = (NSString *)
-         CFBridgingRelease(CMTimeCopyDescription(NULL, requestedTime));
-         NSString *actualTimeString = (NSString *)
-         CFBridgingRelease(CMTimeCopyDescription(NULL, actualTime));
-         NSLog(@"Requested: %@; actual %@", requestedTimeString, actualTimeString);
-         
-         if (result == AVAssetImageGeneratorSucceeded) {
-             UIImage *videoScreen;
-             if ([self isRetina]){
-                 videoScreen = [[UIImage alloc] initWithCGImage:image scale:2.0 orientation:UIImageOrientationUp];
-             } else {
-                 videoScreen = [[UIImage alloc] initWithCGImage:image];
-             }
-             
-             
-             UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
-             
-             int all = (i+1)*tmp.frame.size.width;
-             
-             
-             CGRect currentFrame = tmp.frame;
-             currentFrame.origin.x = i*currentFrame.size.width;
-             if (all > self.contentView.frame.size.width){
-                 int delta = all - self.contentView.frame.size.width;
-                 currentFrame.size.width -= delta;
-             }
-             tmp.frame = currentFrame;
-             i++;
-             
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.contentView addSubview:tmp];
-             });
-         }
-         
-         if (result == AVAssetImageGeneratorFailed) {
-             NSLog(@"Failed with error: %@", [error localizedDescription]);
-         }
-         if (result == AVAssetImageGeneratorCancelled) {
-             NSLog(@"Canceled");
-         }
-     }];
+    int prefreWidth=0;
+    for (int i=1; i<actualFramesNeeded; i++){
+        
+        CMTime time = CMTimeMake(i*durationPerFrame, 600);
+        
+        CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:time actualTime:&actualTime error:&error];
+        
+        UIImage *videoScreen;
+        if ([self isRetina]){
+            videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage scale:2.0 orientation:UIImageOrientationUp];
+        } else {
+            videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];
+        }
+        
+        UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
+        
+        
+        CGRect currentFrame = tmp.frame;
+        currentFrame.origin.x = i*picWidth;
+        
+        currentFrame.size.width=picWidth;
+        prefreWidth+=currentFrame.size.width;
+        
+        if( i == actualFramesNeeded-1){
+            currentFrame.size.width-=6;
+        }
+        tmp.frame = currentFrame;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.contentView addSubview:tmp];
+        });
+        CGImageRelease(halfWayImage);
+        
+    }
 }
 
 - (BOOL)isRetina
