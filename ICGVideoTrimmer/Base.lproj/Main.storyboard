@@ -31,7 +31,7 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orR-Nb-icn" customClass="ICGVideoTrimmerView">
                                 <rect key="frame" x="0.0" y="530" width="600" height="70"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="GqQ-Ag-17e"/>
                                 </constraints>

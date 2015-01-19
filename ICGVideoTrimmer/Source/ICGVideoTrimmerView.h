@@ -14,6 +14,7 @@
 @property (strong, nonatomic) AVAsset *asset;
 @property (assign, nonatomic) CGFloat maxLength;
 @property (assign, nonatomic) CGFloat minLength;
+@property (strong, nonatomic) UIColor *themeColor;
 
 - (instancetype)initWithAsset:(AVAsset *)asset;
 
