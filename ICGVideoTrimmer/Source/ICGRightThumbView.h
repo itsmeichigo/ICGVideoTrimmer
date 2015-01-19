@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ICGVideoTrimmerRightOverlayView : UIView
+@interface ICGRightThumbView : UIView
+
+@property (strong, nonatomic) UIColor *color;
+
+- (instancetype)initWithFrame:(CGRect)frame color:(UIColor *)color;
 
 @end

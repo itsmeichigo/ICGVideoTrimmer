@@ -7,12 +7,15 @@
 //
 
 #import "ICGVideoTrimmerView.h"
+#import "ICGLeftThumbView.h"
 
 @interface ICGVideoTrimmerView()
 
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) AVAssetImageGenerator *imageGenerator;
+
+@property (strong, nonatomic) ICGLeftThumbView *leftThumb;
 
 @end
 
@@ -64,6 +67,14 @@
     UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame)-1, CGRectGetWidth(self.frame), 1)];
     [bottomBorder setBackgroundColor:self.themeColor];
     [self addSubview:bottomBorder];
+    
+//    self.leftThumb = [[ICGLeftThumbView alloc] initWithFrame:CGRectMake(0, 0, 10, self.frame.size.height) color:[UIColor redColor]];
+//    self.leftThumb.contentMode = UIViewContentModeLeft;
+//    self.leftThumb.userInteractionEnabled = YES;
+//    self.leftThumb.clipsToBounds = YES;
+//    self.leftThumb.backgroundColor = [UIColor clearColor];
+//    self.leftThumb.layer.borderWidth = 0;
+//    [self addSubview:self.leftThumb];
 }
 
 - (void)addFrames
