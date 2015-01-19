@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ICGLeftThumbView : UIView
+@interface ICGThumbView : UIView
 
 @property (strong, nonatomic) UIColor *color;
 
-- (instancetype)initWithFrame:(CGRect)frame color:(UIColor *)color;
+- (instancetype)initWithFrame:(CGRect)frame color:(UIColor *)color right:(BOOL)flag;
 
 @end
