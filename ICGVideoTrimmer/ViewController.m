@@ -34,6 +34,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     NSURL *url = [info objectForKey:UIImagePickerControllerMediaURL];
     AVAsset *asset = [AVAsset assetWithURL:url];
+    [self.trimmerView setThemeColor:[UIColor lightGrayColor]];
     [self.trimmerView setAsset:asset];
     [self.trimmerView resetSubviews];
 }
