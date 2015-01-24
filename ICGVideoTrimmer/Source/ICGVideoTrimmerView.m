@@ -9,7 +9,7 @@
 #import "ICGVideoTrimmerView.h"
 #import "ICGThumbView.h"
 
-@interface ICGVideoTrimmerView()
+@interface ICGVideoTrimmerView() <UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) UIScrollView *scrollView;
@@ -20,8 +20,8 @@
 @property (strong, nonatomic) ICGThumbView *leftThumbView;
 @property (strong, nonatomic) ICGThumbView *rightThumbView;
 
-@property (nonatomic) CGFloat leftPosition;
-@property (nonatomic) CGFloat rightPosition;
+@property (nonatomic) CGFloat startTime;
+@property (nonatomic) CGFloat endTime;
 
 @property (nonatomic) CGFloat widthPerSecond;
 @end
@@ -67,6 +67,7 @@
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
     [self addSubview:self.scrollView];
+    [self.scrollView setDelegate:self];
     
     self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.frame), CGRectGetHeight(self.scrollView.frame))];
     [self.contentView setClipsToBounds:YES];
@@ -120,6 +121,8 @@
         }
         [self.leftOverlayView setFrame:CGRectMake(0, 0, newLeftViewWidth, CGRectGetHeight(self.leftOverlayView.frame))];
         [self.leftThumbView setFrame:CGRectMake(newLeftViewWidth-10, 0, 10, self.frame.size.height)];
+        
+        [self notifyDelegate];
     }
     
 }
@@ -138,7 +141,17 @@
             newRightViewWidth = maxWidth;
         }
         [self.rightOverlayView setFrame:CGRectMake(CGRectGetWidth(self.frame)-newRightViewWidth, 0, newRightViewWidth, CGRectGetHeight(self.rightOverlayView.frame))];
+        
+        [self notifyDelegate];
     }
+}
+
+- (void)notifyDelegate
+{
+    self.startTime = CGRectGetWidth(self.leftOverlayView.frame) / self.widthPerSecond + self.scrollView.contentOffset.x / self.widthPerSecond;
+    self.endTime = CGRectGetMinX(self.rightOverlayView.frame) / self.widthPerSecond + self.scrollView.contentOffset.x / self.widthPerSecond;
+    NSLog(@"start time: %f, end time: %f", self.startTime, self.endTime);
+    [self.delegate trimmerView:self didChangeLeftPosition:self.startTime rightPosition:self.endTime];
 }
 
 - (void)addFrames
@@ -187,7 +200,7 @@
     CGFloat durationPerFrame = duration / (actualFramesNeeded*1.0);
     self.widthPerSecond = contentViewFrameWidth / duration;
     
-    int prefreWidth=0;
+    int prefreWidth = 0;
     for (int i=1; i<actualFramesNeeded; i++){
         
         CMTime time = CMTimeMake(i*durationPerFrame, 600);
@@ -228,6 +241,13 @@
 {
     return ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
             ([UIScreen mainScreen].scale == 2.0));
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self notifyDelegate];
 }
 
 @end
