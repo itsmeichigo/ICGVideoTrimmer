@@ -1,7 +1,7 @@
 # ICGVideoTrimmer
 A library for quick video trimming based on `SAVideoRangeSlider`, mimicking the behavior of Instagram's.
 
-![Screenshot](https://raw.githubusercontent.com/itsmeichigo/ICGVideoTrimmer/master/ScreenShot.png)
+![Screenshot](https://raw.githubusercontent.com/itsmeichigo/ICGVideoTrimmer/master/Screenshot.png)
 
 ## Note
 I've made this very quickly so here's a list of things to do for improvements (pull requests are very much appreciated!):
@@ -17,7 +17,7 @@ I've made this very quickly so here's a list of things to do for improvements (p
 	pod 'ICGVideoTrimmer'
 
 #### Manually add ICGVideoTrimmer as a library:
-  Drag and drop the subfolder named `ICGVideoTrimmer` in your project and you are done.
+  Drag and drop the subfolder named `Source` in your project and you are done.
 
 ### Usage
 Create an instance of `ICGVideoTrimmer` using interface builder or programmatically. Give it an asset and set the delegate. You can select theme color for the trimmer view and decide whether to show the ruler view by setting the properties. Finally, don't forget to call `resetSubviews`!
