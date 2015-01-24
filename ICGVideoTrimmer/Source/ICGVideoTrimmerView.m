@@ -111,7 +111,8 @@
         CGPoint translation = [gesture translationInView:self];
         
         CGFloat newLeftViewWidth = CGRectGetWidth(self.leftOverlayView.frame)+translation.x;
-        CGFloat maxWidth = CGRectGetMinX(self.rightOverlayView.frame)-(self.widthPerSecond * self.minLength);
+        CGFloat totalWidth = CGRectGetWidth(self.contentView.frame) < CGRectGetWidth(self.frame) ? CGRectGetWidth(self.contentView.frame) : CGRectGetWidth(self.frame);
+        CGFloat maxWidth = totalWidth - CGRectGetWidth(self.rightOverlayView.frame) - (self.minLength * self.widthPerSecond);
         if (newLeftViewWidth < 10) {
             newLeftViewWidth = 10;
         } else if (newLeftViewWidth > maxWidth) {
@@ -129,7 +130,8 @@
         CGPoint translation = [gesture translationInView:self];
         
         CGFloat newRightViewWidth = CGRectGetWidth(self.rightOverlayView.frame)-translation.x;
-        CGFloat maxWidth = CGRectGetWidth(self.frame) - CGRectGetWidth(self.leftOverlayView.frame) - (self.widthPerSecond * self.minLength);
+        CGFloat totalWidth = CGRectGetWidth(self.contentView.frame) < CGRectGetWidth(self.frame) ? CGRectGetWidth(self.contentView.frame) : CGRectGetWidth(self.frame);
+        CGFloat maxWidth = totalWidth - CGRectGetWidth(self.leftOverlayView.frame) - (self.minLength * self.widthPerSecond);
         if (newRightViewWidth < 10) {
             newRightViewWidth = 10;
         } else if (newRightViewWidth > maxWidth) {
@@ -183,7 +185,7 @@
     actualFramesNeeded =  (duration / self.maxLength) * minFramesNeeded;
     
     CGFloat durationPerFrame = duration / (actualFramesNeeded*1.0);
-    self.widthPerSecond = duration / contentViewFrameWidth;
+    self.widthPerSecond = contentViewFrameWidth / duration;
     
     int prefreWidth=0;
     for (int i=1; i<actualFramesNeeded; i++){
