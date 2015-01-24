@@ -7,6 +7,7 @@ A library for quick video trimming based on `SAVideoRangeSlider`, mimicking the 
 I've made this very quickly so here's a list of things to do for improvements (pull requests are very much appreciated!):
 - Make panning thumb views smoother
 - Make ruller view more customizable and nice
+- Bug fixes if there're any
 - More and more, can't remember right now hahha.
 
 ## Getting started
