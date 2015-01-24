@@ -22,6 +22,9 @@
 @property (strong, nonatomic) ICGThumbView *leftThumbView;
 @property (strong, nonatomic) ICGThumbView *rightThumbView;
 
+@property (strong, nonatomic) UIView *topBorder;
+@property (strong, nonatomic) UIView *bottomBorder;
+
 @property (nonatomic) CGFloat startTime;
 @property (nonatomic) CGFloat endTime;
 
@@ -88,14 +91,13 @@
         [self.contentView addSubview:rulerView];
     }
     
-    UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), 1)];
-    [topBorder setBackgroundColor:self.themeColor];
-    [self addSubview:topBorder];
+    self.topBorder = [[UIView alloc] init];
+    [self.topBorder setBackgroundColor:self.themeColor];
+    [self addSubview:self.topBorder];
     
-    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frameView.frame)-1, CGRectGetWidth(self.frame), 1)];
-    [bottomBorder setBackgroundColor:self.themeColor];
-    [self addSubview:bottomBorder];
-    
+    self.bottomBorder = [[UIView alloc] init];
+    [self.bottomBorder setBackgroundColor:self.themeColor];
+    [self addSubview:self.bottomBorder];
     
     self.leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, CGRectGetHeight(self.frameView.frame))];
     self.leftThumbView = [[ICGThumbView alloc] initWithFrame:self.leftOverlayView.frame color:self.themeColor right:NO];
@@ -115,6 +117,14 @@
     [self.rightOverlayView addGestureRecognizer:rightPanGestureRecognizer];
     [self.rightOverlayView setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.8]];
     [self addSubview:self.rightOverlayView];
+    
+    [self updateBorderFrames];
+}
+
+- (void)updateBorderFrames
+{
+    [self.topBorder setFrame:CGRectMake(CGRectGetMaxX(self.leftOverlayView.frame), 0, CGRectGetMinX(self.rightOverlayView.frame)-CGRectGetMaxX(self.leftOverlayView.frame), 1)];
+    [self.bottomBorder setFrame:CGRectMake(CGRectGetMaxX(self.leftOverlayView.frame), CGRectGetHeight(self.frameView.frame)-1, CGRectGetMinX(self.rightOverlayView.frame)-CGRectGetMaxX(self.leftOverlayView.frame), 1)];
 }
 
 - (void)moveLeftOverlayView:(UIPanGestureRecognizer *)gesture
@@ -132,7 +142,7 @@
         }
         [self.leftOverlayView setFrame:CGRectMake(0, 0, newLeftViewWidth, CGRectGetHeight(self.leftOverlayView.frame))];
         [self.leftThumbView setFrame:CGRectMake(newLeftViewWidth-10, 0, 10, CGRectGetHeight(self.frameView.frame))];
-        
+        [self updateBorderFrames];
         [self notifyDelegate];
     }
     
@@ -152,7 +162,7 @@
             newRightViewWidth = maxWidth;
         }
         [self.rightOverlayView setFrame:CGRectMake(CGRectGetWidth(self.frame)-newRightViewWidth, 0, newRightViewWidth, CGRectGetHeight(self.rightOverlayView.frame))];
-        
+        [self updateBorderFrames];
         [self notifyDelegate];
     }
 }
