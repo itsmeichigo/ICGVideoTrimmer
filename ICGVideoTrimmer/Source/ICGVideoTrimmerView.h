@@ -14,9 +14,11 @@
 @interface ICGVideoTrimmerView : UIView
 
 @property (strong, nonatomic) AVAsset *asset;
+@property (strong, nonatomic) UIColor *themeColor;
+
 @property (assign, nonatomic) CGFloat maxLength;
 @property (assign, nonatomic) CGFloat minLength;
-@property (strong, nonatomic) UIColor *themeColor;
+@property (assign, nonatomic) BOOL showsRulerView;
 
 @property (strong, nonatomic) id<ICGVideoTrimmerDelegate> delegate;
 

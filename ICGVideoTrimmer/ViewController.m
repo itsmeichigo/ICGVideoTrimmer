@@ -36,6 +36,7 @@
     AVAsset *asset = [AVAsset assetWithURL:url];
     [self.trimmerView setThemeColor:[UIColor lightGrayColor]];
     [self.trimmerView setAsset:asset];
+    [self.trimmerView setShowsRulerView:YES];
     [self.trimmerView resetSubviews];
 }
 

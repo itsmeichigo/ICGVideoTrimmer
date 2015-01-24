@@ -11,6 +11,7 @@
 		2CEFE5D41A6BA4A300592ABF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEFE5D31A6BA4A300592ABF /* AVFoundation.framework */; };
 		2CEFE5D61A6C164B00592ABF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEFE5D51A6C164B00592ABF /* MobileCoreServices.framework */; };
 		2CF48F881A6D6B43000502E0 /* ICGThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF48F871A6D6B43000502E0 /* ICGThumbView.m */; };
+		2CF48F8E1A740835000502E0 /* ICGRulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF48F8D1A740835000502E0 /* ICGRulerView.m */; };
 		DE4F1F581A67C9BB00478F77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F571A67C9BB00478F77 /* main.m */; };
 		DE4F1F5B1A67C9BB00478F77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F5A1A67C9BB00478F77 /* AppDelegate.m */; };
 		DE4F1F5E1A67C9BB00478F77 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4F1F5D1A67C9BB00478F77 /* ViewController.m */; };
@@ -37,6 +38,8 @@
 		2CEFE5D51A6C164B00592ABF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2CF48F861A6D6B43000502E0 /* ICGThumbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGThumbView.h; sourceTree = "<group>"; };
 		2CF48F871A6D6B43000502E0 /* ICGThumbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICGThumbView.m; sourceTree = "<group>"; };
+		2CF48F8C1A740835000502E0 /* ICGRulerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGRulerView.h; sourceTree = "<group>"; };
+		2CF48F8D1A740835000502E0 /* ICGRulerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICGRulerView.m; sourceTree = "<group>"; };
 		DE4F1F521A67C9BB00478F77 /* ICGVideoTrimmer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ICGVideoTrimmer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE4F1F561A67C9BB00478F77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE4F1F571A67C9BB00478F77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -79,6 +82,8 @@
 				2CEFE5D11A6BA47100592ABF /* ICGVideoTrimmerView.m */,
 				2CF48F861A6D6B43000502E0 /* ICGThumbView.h */,
 				2CF48F871A6D6B43000502E0 /* ICGThumbView.m */,
+				2CF48F8C1A740835000502E0 /* ICGRulerView.h */,
+				2CF48F8D1A740835000502E0 /* ICGRulerView.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				2CEFE5D21A6BA47100592ABF /* ICGVideoTrimmerView.m in Sources */,
 				DE4F1F5B1A67C9BB00478F77 /* AppDelegate.m in Sources */,
 				DE4F1F581A67C9BB00478F77 /* main.m in Sources */,
+				2CF48F8E1A740835000502E0 /* ICGRulerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,10 +8,12 @@
 
 #import "ICGVideoTrimmerView.h"
 #import "ICGThumbView.h"
+#import "ICGRulerView.h"
 
 @interface ICGVideoTrimmerView() <UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIView *contentView;
+@property (strong, nonatomic) UIView *frameView;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) AVAssetImageGenerator *imageGenerator;
 
@@ -67,26 +69,35 @@
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
     [self addSubview:self.scrollView];
+    [self.scrollView setContentInset:UIEdgeInsetsMake(0, 10, 0, 10)];
     [self.scrollView setDelegate:self];
+    [self.scrollView setShowsHorizontalScrollIndicator:NO];
     
     self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.scrollView.frame), CGRectGetHeight(self.scrollView.frame))];
-    [self.contentView setClipsToBounds:YES];
-    [self.contentView.layer setCornerRadius:5];
     [self.scrollView setContentSize:self.contentView.frame.size];
     [self.scrollView addSubview:self.contentView];
     
+    CGFloat ratio = self.showsRulerView ? 0.7 : 1.0;
+    self.frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), CGRectGetHeight(self.contentView.frame)*ratio)];
+    [self.contentView addSubview:self.frameView];
+    
     [self addFrames];
+    
+    if (self.showsRulerView) {
+        ICGRulerView *rulerView = [[ICGRulerView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.contentView.frame)*ratio, CGRectGetWidth(self.contentView.frame), CGRectGetHeight(self.contentView.frame)*0.3) widthPerSecond:self.widthPerSecond];
+        [self.contentView addSubview:rulerView];
+    }
     
     UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), 1)];
     [topBorder setBackgroundColor:self.themeColor];
     [self addSubview:topBorder];
     
-    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame)-1, CGRectGetWidth(self.frame), 1)];
+    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frameView.frame)-1, CGRectGetWidth(self.frame), 1)];
     [bottomBorder setBackgroundColor:self.themeColor];
     [self addSubview:bottomBorder];
     
     
-    self.leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, self.frame.size.height)];
+    self.leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, CGRectGetHeight(self.frameView.frame))];
     self.leftThumbView = [[ICGThumbView alloc] initWithFrame:self.leftOverlayView.frame color:self.themeColor right:NO];
     [self.leftOverlayView addSubview:self.leftThumbView];
     [self.leftOverlayView setUserInteractionEnabled:YES];
@@ -95,9 +106,9 @@
     [self.leftOverlayView setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.8]];
     [self addSubview:self.leftOverlayView];
     
-    CGFloat rightViewFrameX = (CGRectGetWidth(self.contentView.frame) < CGRectGetWidth(self.frame) ? CGRectGetWidth(self.contentView.frame) : CGRectGetWidth(self.frame)) - 10;
-    self.rightOverlayView = [[UIView alloc] initWithFrame:CGRectMake(rightViewFrameX, 0, 10, CGRectGetHeight(self.frame))];
-    self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, 10, self.frame.size.height) color:self.themeColor right:YES];
+    CGFloat rightViewFrameX = (CGRectGetWidth(self.frameView.frame) < CGRectGetWidth(self.frame) ? CGRectGetWidth(self.frameView.frame) : CGRectGetWidth(self.frame)) - 10;
+    self.rightOverlayView = [[UIView alloc] initWithFrame:CGRectMake(rightViewFrameX, 0, 10, CGRectGetHeight(self.frameView.frame))];
+    self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, 10, CGRectGetHeight(self.frameView.frame)) color:self.themeColor right:YES];
     [self.rightOverlayView addSubview:self.rightThumbView];
     [self.rightOverlayView setUserInteractionEnabled:YES];
     UIPanGestureRecognizer *rightPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveRightOverlayView:)];
@@ -112,7 +123,7 @@
         CGPoint translation = [gesture translationInView:self];
         
         CGFloat newLeftViewWidth = CGRectGetWidth(self.leftOverlayView.frame)+translation.x;
-        CGFloat totalWidth = CGRectGetWidth(self.contentView.frame) < CGRectGetWidth(self.frame) ? CGRectGetWidth(self.contentView.frame) : CGRectGetWidth(self.frame);
+        CGFloat totalWidth = CGRectGetWidth(self.frameView.frame) < CGRectGetWidth(self.frame) ? CGRectGetWidth(self.frameView.frame) : CGRectGetWidth(self.frame);
         CGFloat maxWidth = totalWidth - CGRectGetWidth(self.rightOverlayView.frame) - (self.minLength * self.widthPerSecond);
         if (newLeftViewWidth < 10) {
             newLeftViewWidth = 10;
@@ -120,7 +131,7 @@
             newLeftViewWidth = maxWidth;
         }
         [self.leftOverlayView setFrame:CGRectMake(0, 0, newLeftViewWidth, CGRectGetHeight(self.leftOverlayView.frame))];
-        [self.leftThumbView setFrame:CGRectMake(newLeftViewWidth-10, 0, 10, self.frame.size.height)];
+        [self.leftThumbView setFrame:CGRectMake(newLeftViewWidth-10, 0, 10, CGRectGetHeight(self.frameView.frame))];
         
         [self notifyDelegate];
     }
@@ -133,7 +144,7 @@
         CGPoint translation = [gesture translationInView:self];
         
         CGFloat newRightViewWidth = CGRectGetWidth(self.rightOverlayView.frame)-translation.x;
-        CGFloat totalWidth = CGRectGetWidth(self.contentView.frame) < CGRectGetWidth(self.frame) ? CGRectGetWidth(self.contentView.frame) : CGRectGetWidth(self.frame);
+        CGFloat totalWidth = CGRectGetWidth(self.frameView.frame) < CGRectGetWidth(self.frame) ? CGRectGetWidth(self.frameView.frame) : CGRectGetWidth(self.frame);
         CGFloat maxWidth = totalWidth - CGRectGetWidth(self.leftOverlayView.frame) - (self.minLength * self.widthPerSecond);
         if (newRightViewWidth < 10) {
             newRightViewWidth = 10;
@@ -160,9 +171,9 @@
     self.imageGenerator.appliesPreferredTrackTransform = YES;
     
     if ([self isRetina]){
-        self.imageGenerator.maximumSize = CGSizeMake(self.contentView.frame.size.width*2, self.contentView.frame.size.height*2);
+        self.imageGenerator.maximumSize = CGSizeMake(CGRectGetWidth(self.frameView.frame)*2, CGRectGetHeight(self.frameView.frame)*2);
     } else {
-        self.imageGenerator.maximumSize = CGSizeMake(self.contentView.frame.size.width, self.contentView.frame.size.height);
+        self.imageGenerator.maximumSize = CGSizeMake(CGRectGetWidth(self.frameView.frame), CGRectGetHeight(self.frameView.frame));
     }
     
     CGFloat picWidth = 0;
@@ -182,16 +193,17 @@
         CGRect rect = tmp.frame;
         rect.size.width = videoScreen.size.width;
         tmp.frame = rect;
-        [self.contentView addSubview:tmp];
+        [self.frameView addSubview:tmp];
         picWidth = tmp.frame.size.width;
         CGImageRelease(halfWayImage);
     }
     
     CGFloat duration = CMTimeGetSeconds([self.asset duration]);
-    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat screenWidth = CGRectGetWidth(self.frame) - 20; // quick fix to make up for the width of thumb views
     NSInteger actualFramesNeeded;
     
     CGFloat contentViewFrameWidth = (duration / self.maxLength) * screenWidth;
+    [self.frameView setFrame:CGRectMake(0, 0, contentViewFrameWidth, CGRectGetHeight(self.frameView.frame))];
     [self.contentView setFrame:CGRectMake(0, 0, contentViewFrameWidth, CGRectGetHeight(self.contentView.frame))];
     [self.scrollView setContentSize:self.contentView.frame.size];
     NSInteger minFramesNeeded = screenWidth / picWidth + 1;
@@ -230,7 +242,7 @@
         tmp.frame = currentFrame;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.contentView addSubview:tmp];
+            [self.frameView addSubview:tmp];
         });
         CGImageRelease(halfWayImage);
         

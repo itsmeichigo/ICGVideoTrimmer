@@ -31,10 +31,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orR-Nb-icn" customClass="ICGVideoTrimmerView">
-                                <rect key="frame" x="0.0" y="530" width="600" height="70"/>
+                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="GqQ-Ag-17e"/>
+                                    <constraint firstAttribute="height" constant="100" id="GqQ-Ag-17e"/>
                                 </constraints>
                             </view>
                         </subviews>
