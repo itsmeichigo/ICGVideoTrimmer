@@ -9,17 +9,17 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/itsmeichigo/ICGVideoTrimmer"
-  # s.screenshots  = "https://raw.githubusercontent.com/itsmeichigo/ICGVideoTrimmer/master/Screenshot.png"
+  s.screenshots  = "https://raw.githubusercontent.com/itsmeichigo/ICGVideoTrimmer/master/Screenshot.png"
 
   
   s.license      = { :type => "MIT", :file => "LICENSE" }
   
   s.author             = { "Huong Do" => "huongdt29@gmail.com" }
-  s.social_media_url   = "http://twitter.com/Huong Do"
+  s.social_media_url   = "http://twitter.com/itsmeichigo"
   
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "https://github.com/itsmeichigo/ICGVideoTrimmer.git", :tag => “1.0.1” }
+  s.source       = { :git => "https://github.com/itsmeichigo/ICGVideoTrimmer.git", :tag => "1.0.1" }
 
   s.source_files  = "Source"
 
