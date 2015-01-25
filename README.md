@@ -29,7 +29,7 @@ Create an instance of `ICGVideoTrimmer` using interface builder or programmatica
   [self.trimmerView setDelegate:self];
   [self.trimmerView resetSubviews];
  ```
-
+If necessary, you can also set your desired minimum and maximum length for your trimmed video by setting the properties `minLength` and `maxLength` for the trimmer view. By default, these properties are 3 and 15 (seconds) respectively.
 ## Requirements
 
 ICGVideoTrimmer requires iOS 7 and `MobileCoreServices` and `AVFoundation` frameworks. Honestly I haven't tested it with iOS 6 and below so I can't be too sure if it's compatible.
