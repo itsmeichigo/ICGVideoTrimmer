@@ -25,14 +25,14 @@
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGFloat leftMargin = 0;
+    CGFloat leftMargin = 10;
     CGFloat topMargin = 0;
     CGFloat height = CGRectGetHeight(self.frame);
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat minorTickSpace = self.widthPerSecond;
     int multiple = 5;             
-    CGFloat majorTickLength = 10;
-    CGFloat minorTickLength = 5;
+    CGFloat majorTickLength = 12;
+    CGFloat minorTickLength = 7;
     
     CGFloat baseY = topMargin + height;
     CGFloat minorY = baseY - minorTickLength;
@@ -51,11 +51,7 @@
             NSDictionary *stringAttrs = @{NSFontAttributeName:font, NSForegroundColorAttributeName:textColor};
             
             NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@":%02i", step] attributes:stringAttrs];
-            if (step == 0) {
-                [attrStr drawAtPoint:CGPointMake(x, majorY - 15)];
-            } else {
-                [attrStr drawAtPoint:CGPointMake(x-5, majorY - 15)];
-            }
+            [attrStr drawAtPoint:CGPointMake(x-7, majorY - 15)];
             
             
         } else {
