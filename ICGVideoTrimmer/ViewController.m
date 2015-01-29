@@ -55,10 +55,14 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     NSURL *url = [info objectForKey:UIImagePickerControllerMediaURL];
     self.asset = [AVAsset assetWithURL:url];
+    
+    // set properties for trimmer view
     [self.trimmerView setThemeColor:[UIColor lightGrayColor]];
     [self.trimmerView setAsset:self.asset];
     [self.trimmerView setShowsRulerView:YES];
     [self.trimmerView setDelegate:self];
+    
+    // important: reset subviews
     [self.trimmerView resetSubviews];
     
     [self.trimButton setHidden:NO];

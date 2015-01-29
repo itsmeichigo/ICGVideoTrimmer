@@ -32,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C513A6B1A7A169500CB2F9E /* ICGVideoTrimmer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGVideoTrimmer.h; sourceTree = "<group>"; };
 		2CE63A081A74C43500B804F2 /* ICGRulerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGRulerView.h; sourceTree = "<group>"; };
 		2CE63A091A74C43500B804F2 /* ICGRulerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICGRulerView.m; sourceTree = "<group>"; };
 		2CE63A0A1A74C43500B804F2 /* ICGThumbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICGThumbView.h; sourceTree = "<group>"; };
@@ -84,6 +85,7 @@
 				2CE63A0B1A74C43500B804F2 /* ICGThumbView.m */,
 				2CE63A0C1A74C43500B804F2 /* ICGVideoTrimmerView.h */,
 				2CE63A0D1A74C43500B804F2 /* ICGVideoTrimmerView.m */,
+				2C513A6B1A7A169500CB2F9E /* ICGVideoTrimmer.h */,
 			);
 			path = Source;
 			sourceTree = SOURCE_ROOT;

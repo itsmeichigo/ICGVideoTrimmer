@@ -14,4 +14,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame color:(UIColor *)color right:(BOOL)flag;
 
+- (instancetype)initWithFrame:(CGRect)frame thumbImage:(UIImage *)image;
+
 @end

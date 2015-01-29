@@ -87,7 +87,8 @@
     [self addFrames];
     
     if (self.showsRulerView) {
-        ICGRulerView *rulerView = [[ICGRulerView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.contentView.frame)*ratio, CGRectGetWidth(self.contentView.frame)+10, CGRectGetHeight(self.contentView.frame)*0.3) widthPerSecond:self.widthPerSecond];
+        CGRect rulerFrame = CGRectMake(0, CGRectGetHeight(self.contentView.frame)*ratio, CGRectGetWidth(self.contentView.frame)+10, CGRectGetHeight(self.contentView.frame)*0.3);
+        ICGRulerView *rulerView = [[ICGRulerView alloc] initWithFrame:rulerFrame widthPerSecond:self.widthPerSecond themeColor:self.themeColor];
         [self.contentView addSubview:rulerView];
     }
     
@@ -100,7 +101,11 @@
     [self addSubview:self.bottomBorder];
     
     self.leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, CGRectGetHeight(self.frameView.frame))];
-    self.leftThumbView = [[ICGThumbView alloc] initWithFrame:self.leftOverlayView.frame color:self.themeColor right:NO];
+    if (self.leftThumbImage) {
+        self.leftThumbView = [[ICGThumbView alloc] initWithFrame:self.leftOverlayView.frame thumbImage:self.leftThumbImage];
+    } else {
+        self.leftThumbView = [[ICGThumbView alloc] initWithFrame:self.leftOverlayView.frame color:self.themeColor right:NO];
+    }
     [self.leftThumbView.layer setMasksToBounds:YES];
     [self.leftOverlayView addSubview:self.leftThumbView];
     [self.leftOverlayView setUserInteractionEnabled:YES];
@@ -111,7 +116,11 @@
     
     CGFloat rightViewFrameX = CMTimeGetSeconds([self.asset duration]) <= self.maxLength + 0.5 ? CGRectGetMaxX(self.frameView.frame) : CGRectGetWidth(self.frame) - 10;
     self.rightOverlayView = [[UIView alloc] initWithFrame:CGRectMake(rightViewFrameX, 0, CGRectGetMaxX(self.frame) - rightViewFrameX, CGRectGetHeight(self.frameView.frame))];
-    self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, 10, CGRectGetHeight(self.frameView.frame)) color:self.themeColor right:YES];
+    if (self.rightThumbImage) {
+        self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, 10, CGRectGetHeight(self.frameView.frame)) thumbImage:self.rightThumbImage];
+    } else {
+        self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, 10, CGRectGetHeight(self.frameView.frame)) color:self.themeColor right:YES];
+    }
     [self.rightThumbView.layer setMasksToBounds:YES];
     [self.rightOverlayView addSubview:self.rightThumbView];
     [self.rightOverlayView setUserInteractionEnabled:YES];
@@ -125,8 +134,9 @@
 
 - (void)updateBorderFrames
 {
-    [self.topBorder setFrame:CGRectMake(CGRectGetMaxX(self.leftOverlayView.frame), 0, CGRectGetMinX(self.rightOverlayView.frame)-CGRectGetMaxX(self.leftOverlayView.frame), 1)];
-    [self.bottomBorder setFrame:CGRectMake(CGRectGetMaxX(self.leftOverlayView.frame), CGRectGetHeight(self.frameView.frame)-1, CGRectGetMinX(self.rightOverlayView.frame)-CGRectGetMaxX(self.leftOverlayView.frame), 1)];
+    CGFloat height = self.borderWidth ? self.borderWidth : 1;
+    [self.topBorder setFrame:CGRectMake(CGRectGetMaxX(self.leftOverlayView.frame), 0, CGRectGetMinX(self.rightOverlayView.frame)-CGRectGetMaxX(self.leftOverlayView.frame), height)];
+    [self.bottomBorder setFrame:CGRectMake(CGRectGetMaxX(self.leftOverlayView.frame), CGRectGetHeight(self.frameView.frame)-height, CGRectGetMinX(self.rightOverlayView.frame)-CGRectGetMaxX(self.leftOverlayView.frame), height)];
 }
 
 - (void)moveLeftOverlayView:(UIPanGestureRecognizer *)gesture

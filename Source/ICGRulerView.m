@@ -10,11 +10,12 @@
 
 @implementation ICGRulerView
 
-- (instancetype)initWithFrame:(CGRect)frame widthPerSecond:(CGFloat)width
+- (instancetype)initWithFrame:(CGRect)frame widthPerSecond:(CGFloat)width themeColor:(UIColor *)color
 {
     self = [super initWithFrame:frame];
     if (self) {
         _widthPerSecond = width;
+        _themeColor = color;
     }
     return self;
 }
@@ -42,12 +43,12 @@
     for (CGFloat x = leftMargin; x <= (leftMargin + width); x += minorTickSpace) {
         CGContextMoveToPoint(context, x, baseY);
         
-        CGContextSetFillColorWithColor(context, [UIColor colorWithWhite:1 alpha:0.5].CGColor);
+        CGContextSetFillColorWithColor(context, self.themeColor.CGColor);
         if (step % multiple == 0) {
             CGContextFillRect(context, CGRectMake(x, majorY, 1.75, majorTickLength));
             
             UIFont *font = [UIFont systemFontOfSize:11];
-            UIColor *textColor = [UIColor colorWithWhite:1 alpha:0.5];
+            UIColor *textColor = self.themeColor;
             NSDictionary *stringAttrs = @{NSFontAttributeName:font, NSForegroundColorAttributeName:textColor};
             
             NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@":%02i", step] attributes:stringAttrs];

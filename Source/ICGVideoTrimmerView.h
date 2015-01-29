@@ -13,12 +13,29 @@
 
 @interface ICGVideoTrimmerView : UIView
 
+// Video to be trimmed
 @property (strong, nonatomic) AVAsset *asset;
+
+// Theme color for the trimmer view
 @property (strong, nonatomic) UIColor *themeColor;
 
+// Maximum length for the trimmed video
 @property (assign, nonatomic) CGFloat maxLength;
+
+// Minimum length for the trimmed video
 @property (assign, nonatomic) CGFloat minLength;
+
+// Show ruler view on the trimmer view or not
 @property (assign, nonatomic) BOOL showsRulerView;
+
+// Custom image for the left thumb
+@property (strong, nonatomic) UIImage *leftThumbImage;
+
+// Custom image for the right thumb
+@property (strong, nonatomic) UIImage *rightThumbImage;
+
+// Custom width for the top and bottom borders
+@property (assign, nonatomic) CGFloat borderWidth;
 
 @property (strong, nonatomic) id<ICGVideoTrimmerDelegate> delegate;
 

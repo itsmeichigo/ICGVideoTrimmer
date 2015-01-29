@@ -11,7 +11,8 @@
 @interface ICGRulerView : UIView
 
 @property (assign, nonatomic) CGFloat widthPerSecond;
+@property (strong, nonatomic) UIColor *themeColor;
 
-- (instancetype)initWithFrame:(CGRect)frame widthPerSecond:(CGFloat)width;
+- (instancetype)initWithFrame:(CGRect)frame widthPerSecond:(CGFloat)width themeColor:(UIColor *)color;
 
 @end

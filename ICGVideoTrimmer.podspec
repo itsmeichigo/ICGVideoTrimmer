@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ICGVideoTrimmer"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "A library for quick video trimming."
 
   s.description  = <<-DESC
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "https://github.com/itsmeichigo/ICGVideoTrimmer.git", :tag => "1.0.1" }
+  s.source       = { :git => "https://github.com/itsmeichigo/ICGVideoTrimmer.git", :tag => "1.0.2" }
 
   s.source_files  = "Source"
 
