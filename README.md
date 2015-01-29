@@ -39,8 +39,8 @@ If necessary, you can also set your desired minimum and maximum length for your 
 
 You can also customize your thumb views by setting images for the left and right thumbs:
 ```objective-C
-    [self.trimmerView setLeftThumbImage:[UIImage imageNamed:@"left-thumb"]];
-    [self.trimmerView setRightThumbImage:[UIImage imageNamed:@"right-thumb"]];
+  [self.trimmerView setLeftThumbImage:[UIImage imageNamed:@"left-thumb"]];
+  [self.trimmerView setRightThumbImage:[UIImage imageNamed:@"right-thumb"]];
 ```
 
 ## Requirements
@@ -57,7 +57,7 @@ for ICGVideoTrimmer.
 
 ## Contributing
 
-Contributions for bug fixing or improvements are welcomed. Feel free to submit a pull request.
+Contributions for bug fixing or improvements are welcome. Feel free to submit a pull request.
 
 ## Licence
 
