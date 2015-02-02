@@ -36,6 +36,14 @@
     return self;
 }
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    CGRect relativeFrame = self.bounds;
+    UIEdgeInsets hitTestEdgeInsets = UIEdgeInsetsMake(0, -30, 0, -30);
+    CGRect hitFrame = UIEdgeInsetsInsetRect(relativeFrame, hitTestEdgeInsets);
+    return CGRectContainsPoint(hitFrame, point);
+}
+
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code

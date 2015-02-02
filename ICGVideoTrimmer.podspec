@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ICGVideoTrimmer"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "A library for quick video trimming."
 
   s.description  = <<-DESC
@@ -11,15 +11,15 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/itsmeichigo/ICGVideoTrimmer"
   s.screenshots  = "https://raw.githubusercontent.com/itsmeichigo/ICGVideoTrimmer/master/Screenshot.png"
 
-  
+
   s.license      = { :type => "MIT", :file => "LICENSE" }
-  
+
   s.author             = { "Huong Do" => "huongdt29@gmail.com" }
   s.social_media_url   = "http://twitter.com/itsmeichigo"
-  
+
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "https://github.com/itsmeichigo/ICGVideoTrimmer.git", :tag => "1.0.2" }
+  s.source       = { :git => "https://github.com/itsmeichigo/ICGVideoTrimmer.git", :tag => "1.0.3" }
 
   s.source_files  = "Source"
 
