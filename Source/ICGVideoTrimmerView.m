@@ -142,6 +142,7 @@
     [self addSubview:self.rightOverlayView];
     
     [self updateBorderFrames];
+    [self notifyDelegate];
 }
 
 - (void)updateBorderFrames
@@ -227,7 +228,7 @@
 
 - (void)notifyDelegate
 {
-    self.startTime = CGRectGetWidth(self.leftOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x -10) / self.widthPerSecond;
+    self.startTime = CGRectGetMaxX(self.leftOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x -10) / self.widthPerSecond;
     self.endTime = CGRectGetMinX(self.rightOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x - 10) / self.widthPerSecond;
     NSLog(@"start time: %f, end time: %f", self.startTime, self.endTime);
     [self.delegate trimmerView:self didChangeLeftPosition:self.startTime rightPosition:self.endTime];
