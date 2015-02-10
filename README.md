@@ -12,6 +12,8 @@ I've made this very quickly so here's a list of things to do for improvements (p
 
 ## Versions
 
+1.0.4: Fix bug getting start time
+
 1.0.3: Make thumb view slide smoother
 
 1.0.2: Make ruler view and thumb view more customizable
