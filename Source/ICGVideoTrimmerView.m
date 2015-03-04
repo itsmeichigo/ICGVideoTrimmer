@@ -313,7 +313,6 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for (int i=1; i<=[times count]; i++) {
             CMTime time = [((NSValue *)[times objectAtIndex:i-1]) CMTimeValue];
-//            NSLog(@"Time:%@", [NSValue valueWithCMTime:time]);
 
             CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
             
