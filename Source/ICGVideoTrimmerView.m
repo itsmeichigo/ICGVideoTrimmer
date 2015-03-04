@@ -251,13 +251,13 @@
     NSError *error;
     CMTime actualTime;
     CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:kCMTimeZero actualTime:&actualTime error:&error];
+    UIImage *videoScreen;
+    if ([self isRetina]){
+        videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage scale:2.0 orientation:UIImageOrientationUp];
+    } else {
+        videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];
+    }
     if (halfWayImage != NULL) {
-        UIImage *videoScreen;
-        if ([self isRetina]){
-            videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage scale:2.0 orientation:UIImageOrientationUp];
-        } else {
-            videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];
-        }
         UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
         CGRect rect = tmp.frame;
         rect.size.width = videoScreen.size.width;
@@ -283,21 +283,14 @@
     self.widthPerSecond = frameViewFrameWidth / duration;
     
     int preferredWidth = 0;
+    NSMutableArray *times = [[NSMutableArray alloc] init];
     for (int i=1; i<actualFramesNeeded; i++){
         
         CMTime time = CMTimeMakeWithSeconds(i*durationPerFrame, 600);
-        NSLog(@"Time:%@", [NSValue valueWithCMTime:time]);
-        
-        CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:time actualTime:&actualTime error:&error];
-        
-        UIImage *videoScreen;
-        if ([self isRetina]){
-            videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage scale:2.0 orientation:UIImageOrientationUp];
-        } else {
-            videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];
-        }
+        [times addObject:[NSValue valueWithCMTime:time]];
         
         UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
+        tmp.tag = i;
         
         CGRect currentFrame = tmp.frame;
         currentFrame.origin.x = i*picWidth;
@@ -313,9 +306,31 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.frameView addSubview:tmp];
         });
-        CGImageRelease(halfWayImage);
+        
         
     }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (int i=1; i<=[times count]; i++) {
+            CMTime time = [((NSValue *)[times objectAtIndex:i-1]) CMTimeValue];
+//            NSLog(@"Time:%@", [NSValue valueWithCMTime:time]);
+
+            CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
+            
+            UIImage *videoScreen;
+            if ([self isRetina]){
+                videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage scale:2.0 orientation:UIImageOrientationUp];
+            } else {
+                videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];
+            }
+            
+            CGImageRelease(halfWayImage);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIImageView *imageView = (UIImageView *)[self.frameView viewWithTag:i];
+                [imageView setImage:videoScreen];
+            });
+        }
+    });
 }
 
 - (BOOL)isRetina
