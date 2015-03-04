@@ -267,7 +267,7 @@
         CGImageRelease(halfWayImage);
     }
     
-    CGFloat duration = CMTimeGetSeconds([self.asset duration]);
+    Float64 duration = CMTimeGetSeconds([self.asset duration]);
     CGFloat screenWidth = CGRectGetWidth(self.frame) - 20; // quick fix to make up for the width of thumb views
     NSInteger actualFramesNeeded;
     
@@ -277,16 +277,16 @@
     [self.contentView setFrame:CGRectMake(0, 0, contentViewFrameWidth, CGRectGetHeight(self.contentView.frame))];
     [self.scrollView setContentSize:self.contentView.frame.size];
     NSInteger minFramesNeeded = screenWidth / picWidth + 1;
-    actualFramesNeeded =  (duration / self.maxLength) * minFramesNeeded + 1;
+    actualFramesNeeded =  (duration / self.maxLength) * minFramesNeeded;
     
-    CGFloat durationPerFrame = duration / (actualFramesNeeded*1.0);
+    Float64 durationPerFrame = duration / (actualFramesNeeded*1.0);
     self.widthPerSecond = frameViewFrameWidth / duration;
     
     int preferredWidth = 0;
     for (int i=1; i<actualFramesNeeded; i++){
         
-        CMTime time = CMTimeMake(i*durationPerFrame, 600);
-        NSLog(@"Time:%f", i*durationPerFrame);
+        CMTime time = CMTimeMakeWithSeconds(i*durationPerFrame, 600);
+        NSLog(@"Time:%@", [NSValue valueWithCMTime:time]);
         
         CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:time actualTime:&actualTime error:&error];
         
@@ -298,7 +298,6 @@
         }
         
         UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
-        
         
         CGRect currentFrame = tmp.frame;
         currentFrame.origin.x = i*picWidth;
