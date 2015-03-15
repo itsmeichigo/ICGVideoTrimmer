@@ -31,7 +31,7 @@
     CGFloat height = CGRectGetHeight(self.frame);
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat minorTickSpace = self.widthPerSecond;
-    int multiple = 5;             
+    NSInteger multiple = 5;
     CGFloat majorTickLength = 12;
     CGFloat minorTickLength = 7;
     
@@ -39,7 +39,7 @@
     CGFloat minorY = baseY - minorTickLength;
     CGFloat majorY = baseY - majorTickLength;
     
-    int step = 0;
+    NSInteger step = 0;
     for (CGFloat x = leftMargin; x <= (leftMargin + width); x += minorTickSpace) {
         CGContextMoveToPoint(context, x, baseY);
         
@@ -51,7 +51,18 @@
             UIColor *textColor = self.themeColor;
             NSDictionary *stringAttrs = @{NSFontAttributeName:font, NSForegroundColorAttributeName:textColor};
             
-            NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@":%02i", step] attributes:stringAttrs];
+            NSInteger minutes = step / 60;
+            NSInteger seconds = step % 60;
+            
+            NSAttributedString* attrStr;
+            
+            if (minutes > 0) {
+                attrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld:%02ld", (long) minutes, (long) seconds] attributes:stringAttrs];
+            }
+            else {
+                attrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@":%02ld", (long) seconds] attributes:stringAttrs];
+            }
+            
             [attrStr drawAtPoint:CGPointMake(x-7, majorY - 15)];
             
             
@@ -61,7 +72,7 @@
         
         step++;
     }
-
+    
 }
 
 @end
