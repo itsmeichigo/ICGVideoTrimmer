@@ -42,12 +42,7 @@
 
 - (instancetype)initWithAsset:(AVAsset *)asset
 {
-    self = [super init];
-    if (self) {
-        _asset = asset;
-        [self resetSubviews];
-    }
-    return self;
+    return [self initWithFrame:CGRectZero asset:asset];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame asset:(AVAsset *)asset
