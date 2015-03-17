@@ -11,6 +11,8 @@ I've made this very quickly so here's a list of things to do for improvements (p
 - More and more, can't remember right now hahha.
 
 ## Versions
+1.0.7: Minor bug fixes
+
 1.0.6: Load frames asynchronously
 
 1.0.5: Fix problem displaying different frames of different timestamps
