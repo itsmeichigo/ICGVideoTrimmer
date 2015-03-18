@@ -10,21 +10,6 @@ I've made this very quickly so here's a list of things to do for improvements (p
 - Bug fixes if any
 - More and more, can't remember right now hahha.
 
-## Versions
-1.0.7, 1.0.8: Minor bug fixes
-
-1.0.6: Load frames asynchronously
-
-1.0.5: Fix problem displaying different frames of different timestamps
-
-1.0.4: Fix bug getting start time
-
-1.0.3: Make thumb view slide smoother
-
-1.0.2: Make ruler view and thumb view more customizable
-
-1.0.1: Initial release
-
 ## Getting started
 
 #### Using CocoaPods:
