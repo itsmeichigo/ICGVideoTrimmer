@@ -323,9 +323,6 @@
                 UIImageView *imageView = (UIImageView *)[self.frameView viewWithTag:i];
                 [imageView setImage:videoScreen];
                 
-                // update right view position
-                CGFloat rightViewFrameX = CGRectGetWidth(self.frameView.frame) < CGRectGetWidth(self.frame) ? CGRectGetMaxX(self.frameView.frame) : CGRectGetWidth(self.frame) - 10;
-                [self.rightOverlayView setFrame:CGRectMake(rightViewFrameX, 0, self.overlayWidth, CGRectGetHeight(self.frameView.frame))];
             });
         }
     });
