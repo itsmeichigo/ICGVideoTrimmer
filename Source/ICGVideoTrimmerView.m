@@ -60,6 +60,7 @@
 
 - (void)resetSubviews
 {
+    [self setBackgroundColor:[UIColor blackColor]];
     if (self.maxLength == 0) {
         self.maxLength = 15;
     }
@@ -102,7 +103,7 @@
     [self addSubview:self.bottomBorder];
     
     // width for left and right overlay views
-    self.overlayWidth =  (CGRectGetWidth(self.frameView.frame) < CGRectGetWidth(self.frame) ? CGRectGetWidth(self.frameView.frame) : CGRectGetWidth(self.frame)) - (self.minLength * self.widthPerSecond);
+    self.overlayWidth =  CGRectGetWidth(self.frame) - (self.minLength * self.widthPerSecond);
     
     // add left overlay view
     self.leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(10 - self.overlayWidth, 0, self.overlayWidth, CGRectGetHeight(self.frameView.frame))];
@@ -174,7 +175,7 @@
             self.leftStartPoint = point;
             [self updateBorderFrames];
             [self notifyDelegate];
-        
+            
             break;
         }
             
@@ -272,7 +273,7 @@
     [self.contentView setFrame:CGRectMake(0, 0, contentViewFrameWidth, CGRectGetHeight(self.contentView.frame))];
     [self.scrollView setContentSize:self.contentView.frame.size];
     NSInteger minFramesNeeded = screenWidth / picWidth + 1;
-    actualFramesNeeded =  (duration / self.maxLength) * minFramesNeeded;
+    actualFramesNeeded =  (duration / self.maxLength) * minFramesNeeded + 1;
     
     Float64 durationPerFrame = duration / (actualFramesNeeded*1.0);
     self.widthPerSecond = frameViewFrameWidth / duration;
@@ -308,7 +309,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for (int i=1; i<=[times count]; i++) {
             CMTime time = [((NSValue *)[times objectAtIndex:i-1]) CMTimeValue];
-
+            
             CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
             
             UIImage *videoScreen;
@@ -331,7 +332,7 @@
 - (BOOL)isRetina
 {
     return ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
-            ([UIScreen mainScreen].scale == 2.0));
+            ([UIScreen mainScreen].scale > 1.0));
 }
 
 #pragma mark - UIScrollViewDelegate
