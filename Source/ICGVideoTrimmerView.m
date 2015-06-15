@@ -234,7 +234,6 @@
 {
     self.startTime = CGRectGetMaxX(self.leftOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x -self.thumbWidth) / self.widthPerSecond;
     self.endTime = CGRectGetMinX(self.rightOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x - self.thumbWidth) / self.widthPerSecond;
-    NSLog(@"start time: %f, end time: %f", self.startTime, self.endTime);
     [self.delegate trimmerView:self didChangeLeftPosition:self.startTime rightPosition:self.endTime];
 }
 
