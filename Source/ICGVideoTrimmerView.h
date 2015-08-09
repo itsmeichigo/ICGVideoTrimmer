@@ -37,7 +37,10 @@
 // Custom width for the top and bottom borders
 @property (assign, nonatomic) CGFloat borderWidth;
 
-@property (strong, nonatomic) id<ICGVideoTrimmerDelegate> delegate;
+// Custom width for thumb
+@property (assign, nonatomic) CGFloat thumbWidth;
+
+@property (weak, nonatomic) IBOutlet id<ICGVideoTrimmerDelegate> delegate;
 
 - (instancetype)initWithAsset:(AVAsset *)asset;
 

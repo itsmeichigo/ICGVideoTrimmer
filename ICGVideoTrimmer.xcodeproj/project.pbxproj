@@ -99,7 +99,9 @@
 				DE4F1F6E1A67C9BB00478F77 /* ICGVideoTrimmerTests */,
 				DE4F1F531A67C9BB00478F77 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		DE4F1F531A67C9BB00478F77 /* Products */ = {
 			isa = PBXGroup;

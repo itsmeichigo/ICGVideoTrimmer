@@ -58,17 +58,25 @@
 
 #pragma mark - Private methods
 
+- (CGFloat)thumbWidth
+{
+    return _thumbWidth ?: 10;
+}
+
+- (CGFloat)maxLength
+{
+    return _maxLength ?: 15;
+}
+
+- (CGFloat)minLength
+{
+    return _minLength ?: 3;
+}
+
 - (void)resetSubviews
 {
     [self setBackgroundColor:[UIColor blackColor]];
-    if (self.maxLength == 0) {
-        self.maxLength = 15;
-    }
-    
-    if (self.minLength == 0) {
-        self.minLength = 3;
-    }
-    
+
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
@@ -81,14 +89,14 @@
     [self.scrollView addSubview:self.contentView];
     
     CGFloat ratio = self.showsRulerView ? 0.7 : 1.0;
-    self.frameView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(self.contentView.frame)-20, CGRectGetHeight(self.contentView.frame)*ratio)];
+    self.frameView = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, 0, CGRectGetWidth(self.contentView.frame)-2*self.thumbWidth, CGRectGetHeight(self.contentView.frame)*ratio)];
     [self.frameView.layer setMasksToBounds:YES];
     [self.contentView addSubview:self.frameView];
     
     [self addFrames];
     
     if (self.showsRulerView) {
-        CGRect rulerFrame = CGRectMake(0, CGRectGetHeight(self.contentView.frame)*ratio, CGRectGetWidth(self.contentView.frame)+10, CGRectGetHeight(self.contentView.frame)*0.3);
+        CGRect rulerFrame = CGRectMake(0, CGRectGetHeight(self.contentView.frame)*ratio, CGRectGetWidth(self.contentView.frame)+self.thumbWidth, CGRectGetHeight(self.contentView.frame)*0.3);
         ICGRulerView *rulerView = [[ICGRulerView alloc] initWithFrame:rulerFrame widthPerSecond:self.widthPerSecond themeColor:self.themeColor];
         [self.contentView addSubview:rulerView];
     }
@@ -104,10 +112,10 @@
     
     // width for left and right overlay views
     self.overlayWidth =  CGRectGetWidth(self.frame) - (self.minLength * self.widthPerSecond);
-    
+
     // add left overlay view
-    self.leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(10 - self.overlayWidth, 0, self.overlayWidth, CGRectGetHeight(self.frameView.frame))];
-    CGRect leftThumbFrame = CGRectMake(self.overlayWidth-10, 0, 10, CGRectGetHeight(self.frameView.frame));
+    self.leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth - self.overlayWidth, 0, self.overlayWidth, CGRectGetHeight(self.frameView.frame))];
+    CGRect leftThumbFrame = CGRectMake(self.overlayWidth-self.thumbWidth, 0, self.thumbWidth, CGRectGetHeight(self.frameView.frame));
     if (self.leftThumbImage) {
         self.leftThumbView = [[ICGThumbView alloc] initWithFrame:leftThumbFrame thumbImage:self.leftThumbImage];
     } else {
@@ -122,12 +130,12 @@
     [self addSubview:self.leftOverlayView];
     
     // add right overlay view
-    CGFloat rightViewFrameX = CGRectGetWidth(self.frameView.frame) < CGRectGetWidth(self.frame) ? CGRectGetMaxX(self.frameView.frame) : CGRectGetWidth(self.frame) - 10;
+    CGFloat rightViewFrameX = CGRectGetWidth(self.frameView.frame) < CGRectGetWidth(self.frame) ? CGRectGetMaxX(self.frameView.frame) : CGRectGetWidth(self.frame) - self.thumbWidth;
     self.rightOverlayView = [[UIView alloc] initWithFrame:CGRectMake(rightViewFrameX, 0, self.overlayWidth, CGRectGetHeight(self.frameView.frame))];
     if (self.rightThumbImage) {
-        self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, 10, CGRectGetHeight(self.frameView.frame)) thumbImage:self.rightThumbImage];
+        self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, self.thumbWidth, CGRectGetHeight(self.frameView.frame)) thumbImage:self.rightThumbImage];
     } else {
-        self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, 10, CGRectGetHeight(self.frameView.frame)) color:self.themeColor right:YES];
+        self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, self.thumbWidth, CGRectGetHeight(self.frameView.frame)) color:self.themeColor right:YES];
     }
     [self.rightThumbView.layer setMasksToBounds:YES];
     [self.rightOverlayView addSubview:self.rightThumbView];
@@ -165,8 +173,8 @@
             CGFloat newLeftViewMidX = center.x += deltaX;;
             CGFloat maxWidth = CGRectGetMinX(self.rightOverlayView.frame) - (self.minLength * self.widthPerSecond);
             CGFloat newLeftViewMinX = newLeftViewMidX - self.overlayWidth/2;
-            if (newLeftViewMinX < 10 - self.overlayWidth) {
-                newLeftViewMidX = 10 - self.overlayWidth + self.overlayWidth/2;
+            if (newLeftViewMinX < self.thumbWidth - self.overlayWidth) {
+                newLeftViewMidX = self.thumbWidth - self.overlayWidth + self.overlayWidth/2;
             } else if (newLeftViewMinX + self.overlayWidth > maxWidth) {
                 newLeftViewMidX = maxWidth - self.overlayWidth / 2;
             }
@@ -202,7 +210,7 @@
             
             CGFloat newRightViewMidX = center.x += deltaX;
             CGFloat minX = CGRectGetMaxX(self.leftOverlayView.frame) + self.minLength * self.widthPerSecond;
-            CGFloat maxX = CMTimeGetSeconds([self.asset duration]) <= self.maxLength + 0.5 ? CGRectGetMaxX(self.frameView.frame) : CGRectGetWidth(self.frame) - 10;
+            CGFloat maxX = CMTimeGetSeconds([self.asset duration]) <= self.maxLength + 0.5 ? CGRectGetMaxX(self.frameView.frame) : CGRectGetWidth(self.frame) - self.thumbWidth;
             if (newRightViewMidX - self.overlayWidth/2 < minX) {
                 newRightViewMidX = minX + self.overlayWidth/2;
             } else if (newRightViewMidX - self.overlayWidth/2 > maxX) {
@@ -224,9 +232,8 @@
 
 - (void)notifyDelegate
 {
-    self.startTime = CGRectGetMaxX(self.leftOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x -10) / self.widthPerSecond;
-    self.endTime = CGRectGetMinX(self.rightOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x - 10) / self.widthPerSecond;
-    NSLog(@"start time: %f, end time: %f", self.startTime, self.endTime);
+    self.startTime = CGRectGetMaxX(self.leftOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x -self.thumbWidth) / self.widthPerSecond;
+    self.endTime = CGRectGetMinX(self.rightOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x - self.thumbWidth) / self.widthPerSecond;
     [self.delegate trimmerView:self didChangeLeftPosition:self.startTime rightPosition:self.endTime];
 }
 
@@ -264,11 +271,11 @@
     }
     
     Float64 duration = CMTimeGetSeconds([self.asset duration]);
-    CGFloat screenWidth = CGRectGetWidth(self.frame) - 20; // quick fix to make up for the width of thumb views
+    CGFloat screenWidth = CGRectGetWidth(self.frame) - 2*self.thumbWidth; // quick fix to make up for the width of thumb views
     NSInteger actualFramesNeeded;
     
     CGFloat frameViewFrameWidth = (duration / self.maxLength) * screenWidth;
-    [self.frameView setFrame:CGRectMake(10, 0, frameViewFrameWidth, CGRectGetHeight(self.frameView.frame))];
+    [self.frameView setFrame:CGRectMake(self.thumbWidth, 0, frameViewFrameWidth, CGRectGetHeight(self.frameView.frame))];
     CGFloat contentViewFrameWidth = CMTimeGetSeconds([self.asset duration]) <= self.maxLength + 0.5 ? screenWidth + 30 : frameViewFrameWidth;
     [self.contentView setFrame:CGRectMake(0, 0, contentViewFrameWidth, CGRectGetHeight(self.contentView.frame))];
     [self.scrollView setContentSize:self.contentView.frame.size];
