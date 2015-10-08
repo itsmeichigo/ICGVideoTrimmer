@@ -28,6 +28,9 @@
 // Show ruler view on the trimmer view or not
 @property (assign, nonatomic) BOOL showsRulerView;
 
+// Show tracker on the trimmer view or not
+@property (assign, nonatomic) BOOL showsTracker;
+
 // Custom image for the left thumb
 @property (strong, nonatomic) UIImage *leftThumbImage;
 
@@ -47,6 +50,8 @@
 - (instancetype)initWithFrame:(CGRect)frame asset:(AVAsset *)asset;
 
 - (void)resetSubviews;
+
+- (void)seekToPos:(CGFloat) startTime;
 
 @end
 

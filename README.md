@@ -1,7 +1,7 @@
 # ICGVideoTrimmer
 A library for quick video trimming based on `SAVideoRangeSlider`, mimicking the behavior of Instagram's.
 
-![Screenshot](https://raw.githubusercontent.com/itsmeichigo/ICGVideoTrimmer/master/Screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/FabKremer/ICGVideoTrimmer/master/Screenshot.png)
 
 ## Note
 I've made this very quickly so here's a list of things to do for improvements (pull requests are very much appreciated!):
@@ -9,6 +9,9 @@ I've made this very quickly so here's a list of things to do for improvements (p
 - ~~Make ruller view more customizable~~
 - Bug fixes if any
 - More and more, can't remember right now hahha.
+
+### Contributed features
+- ~~Added video tracker, mimicking the behaviour of Instagram's~~ - [@FabKremer](https://github.com/FabKremer)
 
 ## Getting started
 
@@ -26,6 +29,7 @@ Create an instance of `ICGVideoTrimmer` using interface builder or programmatica
   [self.trimmerView setThemeColor:[UIColor lightGrayColor]];
   [self.trimmerView setAsset:self.asset];
   [self.trimmerView setShowsRulerView:YES];
+  [self.trimmerView setShowsTracker:YES];
   [self.trimmerView setDelegate:self];
   [self.trimmerView resetSubviews];
  ```
@@ -36,6 +40,7 @@ You can also customize your thumb views by setting images for the left and right
   [self.trimmerView setLeftThumbImage:[UIImage imageNamed:@"left-thumb"]];
   [self.trimmerView setRightThumbImage:[UIImage imageNamed:@"right-thumb"]];
 ```
+See the project example to see how to manage the tracker on a video. 
 
 ## Requirements
 

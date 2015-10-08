@@ -13,8 +13,17 @@
 
 @interface ViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, ICGVideoTrimmerDelegate>
 
+@property (assign, nonatomic) BOOL isPlaying;
+@property (strong, nonatomic) AVPlayer *player;
+@property (strong, nonatomic) AVPlayerItem *playerItem;
+@property (strong, nonatomic) AVPlayerLayer *playerLayer;
+@property (strong, nonatomic) NSTimer *playbackTimeCheckerTimer;
+@property (assign, nonatomic) CGFloat videoPlaybackPosition;
+
 @property (weak, nonatomic) IBOutlet ICGVideoTrimmerView *trimmerView;
 @property (weak, nonatomic) IBOutlet UIButton *trimButton;
+@property (weak, nonatomic) IBOutlet UIView *videoPlayer;
+@property (weak, nonatomic) IBOutlet UIView *videoLayer;
 
 @property (strong, nonatomic) NSString *tempVideoPath;
 @property (strong, nonatomic) AVAssetExportSession *exportSession;
@@ -43,6 +52,10 @@
 
 - (void)trimmerView:(ICGVideoTrimmerView *)trimmerView didChangeLeftPosition:(CGFloat)startTime rightPosition:(CGFloat)endTime
 {
+    if (startTime != self.startTime) {
+        //then it moved the left position, we should rearrange the bar
+        [self seekVideoToPos:startTime];
+    }
     self.startTime = startTime;
     self.stopTime = endTime;
 }
@@ -56,10 +69,24 @@
     NSURL *url = [info objectForKey:UIImagePickerControllerMediaURL];
     self.asset = [AVAsset assetWithURL:url];
     
+    AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:self.asset];
+    
+    self.player = [AVPlayer playerWithPlayerItem:item];
+    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
+    self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    
+    [self.videoLayer.layer addSublayer:self.playerLayer];
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnVideoLayer:)];
+    [self.videoLayer addGestureRecognizer:tap];
+    
+    self.videoPlaybackPosition = 0;
+
     // set properties for trimmer view
     [self.trimmerView setThemeColor:[UIColor lightGrayColor]];
     [self.trimmerView setAsset:self.asset];
     [self.trimmerView setShowsRulerView:YES];
+    [self.trimmerView setShowsTracker:YES];
     [self.trimmerView setDelegate:self];
     
     // important: reset subviews
@@ -157,4 +184,54 @@
         [alert show];
     }
 }
+
+-(void)viewDidLayoutSubviews {
+    self.playerLayer.frame = CGRectMake(0, 0, self.videoLayer.frame.size.width, self.videoLayer.frame.size.height);
+}
+
+- (void)tapOnVideoLayer:(UITapGestureRecognizer*)tap
+{
+    if (self.isPlaying) {
+        [self.player pause];
+        [self stopPlaybackTimeChecker];
+    }else {
+        [self.player play];
+        [self startPlaybackTimeChecker];
+    }
+    self.isPlaying = !self.isPlaying;
+}
+
+- (void) startPlaybackTimeChecker {
+    [self stopPlaybackTimeChecker];
+    
+    self.playbackTimeCheckerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(onPlaybackTimeCheckerTimer) userInfo:nil repeats:YES];
+}
+
+- (void) stopPlaybackTimeChecker {
+    if (self.playbackTimeCheckerTimer) {
+        [self.playbackTimeCheckerTimer invalidate];
+        self.playbackTimeCheckerTimer = nil;
+    }
+}
+
+#pragma mark PlaybackTimeCheckerTimer
+
+- (void) onPlaybackTimeCheckerTimer {
+    self.videoPlaybackPosition = CMTimeGetSeconds([self.player currentTime]);
+
+    [self.trimmerView seekToPos:CMTimeGetSeconds([self.player currentTime])];
+    
+    if (self.videoPlaybackPosition >= self.stopTime) {
+        self.videoPlaybackPosition = self.startTime;
+        [self seekVideoToPos: self.startTime];
+        [self.trimmerView seekToPos:self.startTime];
+    }
+}
+
+- (void)seekVideoToPos:(CGFloat)pos {
+    self.videoPlaybackPosition = pos;
+    CMTime time = CMTimeMakeWithSeconds(self.videoPlaybackPosition, self.player.currentTime.timescale);
+    [self.player seekToTime:time toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
+}
+
 @end
