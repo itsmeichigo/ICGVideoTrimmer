@@ -28,9 +28,6 @@
 // Show ruler view on the trimmer view or not
 @property (assign, nonatomic) BOOL showsRulerView;
 
-// Show tracker on the trimmer view or not
-@property (assign, nonatomic) BOOL showsTracker;
-
 // Customize color for tracker
 @property (assign, nonatomic) UIColor *trackerColor;
 
@@ -54,7 +51,9 @@
 
 - (void)resetSubviews;
 
-- (void)seekToPos:(CGFloat) startTime;
+- (void)seekToTime:(CGFloat)startTime;
+
+- (void)hideTracker:(BOOL)flag;
 
 @end
 

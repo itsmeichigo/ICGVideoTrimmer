@@ -22,7 +22,7 @@
 @property (strong, nonatomic) ICGThumbView *leftThumbView;
 @property (strong, nonatomic) ICGThumbView *rightThumbView;
 
-@property (strong, nonatomic) UIView *tracker;
+@property (strong, nonatomic) UIView *trackerView;
 @property (strong, nonatomic) UIView *topBorder;
 @property (strong, nonatomic) UIView *bottomBorder;
 
@@ -123,14 +123,11 @@
         self.leftThumbView = [[ICGThumbView alloc] initWithFrame:leftThumbFrame color:self.themeColor right:NO];
     }
     
-    if (self.showsTracker){
-        self.tracker = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, -6, 3, CGRectGetHeight(self.frameView.frame) + 12)];
-        self.tracker.backgroundColor = self.trackerColor ? self.trackerColor : [UIColor whiteColor];
-        self.tracker.layer.masksToBounds = true;
-        self.tracker.layer.cornerRadius = 2;
-        [self addSubview:self.tracker];
-
-    }
+    self.trackerView = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, -6, 3, CGRectGetHeight(self.frameView.frame) + 12)];
+    self.trackerView.backgroundColor = self.trackerColor ? self.trackerColor : [UIColor whiteColor];
+    self.trackerView.layer.masksToBounds = true;
+    self.trackerView.layer.cornerRadius = 2;
+    [self addSubview:self.trackerView];
 
     [self.leftThumbView.layer setMasksToBounds:YES];
     [self.leftOverlayView addSubview:self.leftThumbView];
@@ -241,21 +238,26 @@
     }
 }
 
-- (void)seekToPos:(CGFloat) time {
-    
+- (void)seekToTime:(CGFloat) time
+{    
     CGFloat posToMove = time * self.widthPerSecond + self.thumbWidth - self.scrollView.contentOffset.x;
     
-    CGRect trackerFrame = self.tracker.frame;
+    CGRect trackerFrame = self.trackerView.frame;
     trackerFrame.origin.x = posToMove;
-    self.tracker.frame = trackerFrame;
+    self.trackerView.frame = trackerFrame;
     
+}
+
+- (void)hideTracker:(BOOL)flag
+{
+    self.trackerView.hidden = flag;
 }
 
 - (void)notifyDelegate
 {
     CGFloat start = CGRectGetMaxX(self.leftOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x -self.thumbWidth) / self.widthPerSecond;
-    if (self.showsTracker && start != self.startTime) {
-        [self seekToPos:start];
+    if (!self.trackerView.hidden && start != self.startTime) {
+        [self seekToTime:start];
     }
     self.startTime = start;
     self.endTime = CGRectGetMinX(self.rightOverlayView.frame) / self.widthPerSecond + (self.scrollView.contentOffset.x - self.thumbWidth) / self.widthPerSecond;

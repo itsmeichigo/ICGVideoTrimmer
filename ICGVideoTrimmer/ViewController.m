@@ -78,16 +78,17 @@
     
     [self.videoLayer.layer addSublayer:self.playerLayer];
     
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnVideoLayer:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnVideoLayer:)];
     [self.videoLayer addGestureRecognizer:tap];
     
     self.videoPlaybackPosition = 0;
 
+    [self tapOnVideoLayer:tap];
+    
     // set properties for trimmer view
     [self.trimmerView setThemeColor:[UIColor lightGrayColor]];
     [self.trimmerView setAsset:self.asset];
     [self.trimmerView setShowsRulerView:YES];
-    [self.trimmerView setShowsTracker:YES];
     [self.trimmerView setTrackerColor:[UIColor cyanColor]];
     [self.trimmerView setDelegate:self];
     
@@ -187,11 +188,12 @@
     }
 }
 
--(void)viewDidLayoutSubviews {
+- (void)viewDidLayoutSubviews
+{
     self.playerLayer.frame = CGRectMake(0, 0, self.videoLayer.frame.size.width, self.videoLayer.frame.size.height);
 }
 
-- (void)tapOnVideoLayer:(UITapGestureRecognizer*)tap
+- (void)tapOnVideoLayer:(UITapGestureRecognizer *)tap
 {
     if (self.isPlaying) {
         [self.player pause];
@@ -201,36 +203,41 @@
         [self startPlaybackTimeChecker];
     }
     self.isPlaying = !self.isPlaying;
+    [self.trimmerView hideTracker:!self.isPlaying];
 }
 
-- (void) startPlaybackTimeChecker {
+- (void)startPlaybackTimeChecker
+{
     [self stopPlaybackTimeChecker];
     
     self.playbackTimeCheckerTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(onPlaybackTimeCheckerTimer) userInfo:nil repeats:YES];
 }
 
-- (void) stopPlaybackTimeChecker {
+- (void)stopPlaybackTimeChecker
+{
     if (self.playbackTimeCheckerTimer) {
         [self.playbackTimeCheckerTimer invalidate];
         self.playbackTimeCheckerTimer = nil;
     }
 }
 
-#pragma mark PlaybackTimeCheckerTimer
+#pragma mark - PlaybackTimeCheckerTimer
 
-- (void) onPlaybackTimeCheckerTimer {
+- (void)onPlaybackTimeCheckerTimer
+{
     self.videoPlaybackPosition = CMTimeGetSeconds([self.player currentTime]);
 
-    [self.trimmerView seekToPos:CMTimeGetSeconds([self.player currentTime])];
+    [self.trimmerView seekToTime:CMTimeGetSeconds([self.player currentTime])];
     
     if (self.videoPlaybackPosition >= self.stopTime) {
         self.videoPlaybackPosition = self.startTime;
         [self seekVideoToPos: self.startTime];
-        [self.trimmerView seekToPos:self.startTime];
+        [self.trimmerView seekToTime:self.startTime];
     }
 }
 
-- (void)seekVideoToPos:(CGFloat)pos {
+- (void)seekVideoToPos:(CGFloat)pos
+{
     self.videoPlaybackPosition = pos;
     CMTime time = CMTimeMakeWithSeconds(self.videoPlaybackPosition, self.player.currentTime.timescale);
     [self.player seekToTime:time toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
