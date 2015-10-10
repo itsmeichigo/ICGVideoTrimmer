@@ -89,7 +89,7 @@
     [self.scrollView setContentSize:self.contentView.frame.size];
     [self.scrollView addSubview:self.contentView];
     
-    CGFloat ratio = self.showsRulerView ? 0.6 : 0.9;
+    CGFloat ratio = self.showsRulerView ? 0.7 : 1.0;
     self.frameView = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, 0, CGRectGetWidth(self.contentView.frame)-2*self.thumbWidth, CGRectGetHeight(self.contentView.frame)*ratio)];
     [self.frameView.layer setMasksToBounds:YES];
     [self.contentView addSubview:self.frameView];
@@ -123,7 +123,7 @@
         self.leftThumbView = [[ICGThumbView alloc] initWithFrame:leftThumbFrame color:self.themeColor right:NO];
     }
     
-    self.trackerView = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, -6, 3, CGRectGetHeight(self.frameView.frame) + 12)];
+    self.trackerView = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, -5, 3, CGRectGetHeight(self.frameView.frame) + 10)];
     self.trackerView.backgroundColor = self.trackerColor ? self.trackerColor : [UIColor whiteColor];
     self.trackerView.layer.masksToBounds = true;
     self.trackerView.layer.cornerRadius = 2;
@@ -268,7 +268,6 @@
 {
     self.imageGenerator = [AVAssetImageGenerator assetImageGeneratorWithAsset:self.asset];
     self.imageGenerator.appliesPreferredTrackTransform = YES;
-    
     if ([self isRetina]){
         self.imageGenerator.maximumSize = CGSizeMake(CGRectGetWidth(self.frameView.frame)*2, CGRectGetHeight(self.frameView.frame)*2);
     } else {
