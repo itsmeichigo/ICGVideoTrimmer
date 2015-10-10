@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -19,23 +18,21 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GF0-OD-nYr" userLabel="View - Player">
-                                <rect key="frame" x="0.0" y="94" width="600" height="375"/>
+                                <rect key="frame" x="0.0" y="118" width="600" height="351"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFN-te-fPQ" userLabel="View - Video Layer">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="375"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="351"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="NFN-te-fPQ" secondAttribute="height" multiplier="8:5" id="3MN-fx-7xQ"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="NFN-te-fPQ" firstAttribute="leading" secondItem="GF0-OD-nYr" secondAttribute="leading" id="LzF-kG-s7y"/>
-                                    <constraint firstItem="NFN-te-fPQ" firstAttribute="width" secondItem="GF0-OD-nYr" secondAttribute="width" id="kqe-UM-NTo"/>
-                                    <constraint firstItem="NFN-te-fPQ" firstAttribute="top" secondItem="GF0-OD-nYr" secondAttribute="top" id="ofO-Ke-X9L"/>
+                                    <constraint firstAttribute="trailing" secondItem="NFN-te-fPQ" secondAttribute="trailing" id="2G7-Vz-3yC"/>
+                                    <constraint firstItem="NFN-te-fPQ" firstAttribute="leading" secondItem="GF0-OD-nYr" secondAttribute="leading" id="3kr-Ev-wNy"/>
+                                    <constraint firstAttribute="bottom" secondItem="NFN-te-fPQ" secondAttribute="bottom" id="NoF-o9-EZP"/>
+                                    <constraint firstItem="NFN-te-fPQ" firstAttribute="top" secondItem="GF0-OD-nYr" secondAttribute="top" id="j4F-s2-rdZ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orR-Nb-icn" customClass="ICGVideoTrimmerView">
@@ -43,15 +40,15 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="GqQ-Ag-17e"/>
+                                    <constraint firstAttribute="height" constant="100" id="x4j-N3-Ar5"/>
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dww-6T-6Dy">
-                                <rect key="frame" x="277" y="103" width="46" height="30"/>
+                                <rect key="frame" x="250" y="80" width="100" height="30"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="5yH-re-Qlh"/>
-                                    <constraint firstAttribute="height" constant="30" id="K0u-ia-g2L"/>
+                                    <constraint firstAttribute="height" constant="30" id="BnU-Fb-06e"/>
+                                    <constraint firstAttribute="width" constant="100" id="kvn-MV-Jue"/>
                                 </constraints>
                                 <state key="normal" title="Trim it!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -65,8 +62,8 @@
                                 <rect key="frame" x="223" y="40" width="154" height="30"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="154" id="DDi-R3-7zE"/>
-                                    <constraint firstAttribute="height" constant="30" id="c3L-j4-EpY"/>
+                                    <constraint firstAttribute="height" constant="30" id="01F-h7-tCe"/>
+                                    <constraint firstAttribute="width" constant="154" id="cuP-7i-zQn"/>
                                 </constraints>
                                 <state key="normal" title="Select Asset">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -80,17 +77,17 @@
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="dww-6T-6Dy" secondAttribute="centerX" id="9NL-hC-9Y3"/>
-                            <constraint firstAttribute="trailing" secondItem="orR-Nb-icn" secondAttribute="trailing" id="9qJ-9o-Gb4"/>
-                            <constraint firstItem="Ro0-7V-UNL" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="Dhh-me-Kwu"/>
-                            <constraint firstAttribute="centerX" secondItem="Ro0-7V-UNL" secondAttribute="centerX" id="GJA-RL-P2U"/>
-                            <constraint firstItem="orR-Nb-icn" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="MyN-Aa-6GU"/>
-                            <constraint firstItem="GF0-OD-nYr" firstAttribute="leading" secondItem="orR-Nb-icn" secondAttribute="leading" id="N29-RO-1zE"/>
-                            <constraint firstItem="dww-6T-6Dy" firstAttribute="top" secondItem="Ro0-7V-UNL" secondAttribute="bottom" constant="33" id="Y98-gY-rsd"/>
-                            <constraint firstItem="GF0-OD-nYr" firstAttribute="width" secondItem="GF0-OD-nYr" secondAttribute="height" multiplier="8:5" id="YbJ-u8-fH7"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="orR-Nb-icn" secondAttribute="bottom" id="eXv-9g-rjR"/>
-                            <constraint firstItem="GF0-OD-nYr" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="nUI-dY-2kY"/>
-                            <constraint firstItem="orR-Nb-icn" firstAttribute="top" secondItem="NFN-te-fPQ" secondAttribute="bottom" constant="31" id="vUR-zP-TNo"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="orR-Nb-icn" secondAttribute="bottom" id="0iP-7R-9tu"/>
+                            <constraint firstItem="orR-Nb-icn" firstAttribute="top" secondItem="GF0-OD-nYr" secondAttribute="bottom" constant="31" id="1RM-Kb-sIa"/>
+                            <constraint firstAttribute="trailing" secondItem="orR-Nb-icn" secondAttribute="trailing" id="6fS-lf-SuO"/>
+                            <constraint firstItem="orR-Nb-icn" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="6ic-Sp-VaJ"/>
+                            <constraint firstItem="dww-6T-6Dy" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="AY5-sQ-iFG"/>
+                            <constraint firstItem="GF0-OD-nYr" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Atf-cu-6DT"/>
+                            <constraint firstItem="Ro0-7V-UNL" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="BML-vX-hZT"/>
+                            <constraint firstAttribute="trailing" secondItem="GF0-OD-nYr" secondAttribute="trailing" id="DOv-fl-TfK"/>
+                            <constraint firstItem="GF0-OD-nYr" firstAttribute="top" secondItem="dww-6T-6Dy" secondAttribute="bottom" constant="8" id="WQy-NZ-Tpa"/>
+                            <constraint firstItem="Ro0-7V-UNL" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="tlA-kh-XWg"/>
+                            <constraint firstItem="dww-6T-6Dy" firstAttribute="top" secondItem="Ro0-7V-UNL" secondAttribute="bottom" constant="10" id="ygP-ac-6lJ"/>
                         </constraints>
                     </view>
                     <connections>

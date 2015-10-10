@@ -73,6 +73,7 @@
     
     self.player = [AVPlayer playerWithPlayerItem:item];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
+    self.playerLayer.contentsGravity = AVLayerVideoGravityResizeAspect;
     self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     
     [self.videoLayer.layer addSublayer:self.playerLayer];
@@ -87,6 +88,7 @@
     [self.trimmerView setAsset:self.asset];
     [self.trimmerView setShowsRulerView:YES];
     [self.trimmerView setShowsTracker:YES];
+    [self.trimmerView setTrackerColor:[UIColor cyanColor]];
     [self.trimmerView setDelegate:self];
     
     // important: reset subviews

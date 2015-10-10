@@ -31,6 +31,9 @@
 // Show tracker on the trimmer view or not
 @property (assign, nonatomic) BOOL showsTracker;
 
+// Customize color for tracker
+@property (assign, nonatomic) UIColor *trackerColor;
+
 // Custom image for the left thumb
 @property (strong, nonatomic) UIImage *leftThumbImage;
 

@@ -89,7 +89,7 @@
     [self.scrollView setContentSize:self.contentView.frame.size];
     [self.scrollView addSubview:self.contentView];
     
-    CGFloat ratio = self.showsRulerView ? 0.7 : 1.0;
+    CGFloat ratio = self.showsRulerView ? 0.6 : 0.9;
     self.frameView = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, 0, CGRectGetWidth(self.contentView.frame)-2*self.thumbWidth, CGRectGetHeight(self.contentView.frame)*ratio)];
     [self.frameView.layer setMasksToBounds:YES];
     [self.contentView addSubview:self.frameView];
@@ -97,7 +97,7 @@
     [self addFrames];
     
     if (self.showsRulerView) {
-        CGRect rulerFrame = CGRectMake(0, CGRectGetHeight(self.contentView.frame)*ratio, CGRectGetWidth(self.contentView.frame)+self.thumbWidth, CGRectGetHeight(self.contentView.frame)*0.3);
+        CGRect rulerFrame = CGRectMake(0, CGRectGetHeight(self.contentView.frame)*0.7, CGRectGetWidth(self.contentView.frame)+self.thumbWidth, CGRectGetHeight(self.contentView.frame)*0.3);
         ICGRulerView *rulerView = [[ICGRulerView alloc] initWithFrame:rulerFrame widthPerSecond:self.widthPerSecond themeColor:self.themeColor];
         [self.contentView addSubview:rulerView];
     }
@@ -124,8 +124,10 @@
     }
     
     if (self.showsTracker){
-        self.tracker = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, 0, 3, CGRectGetHeight(self.frameView.frame))];
-        self.tracker.backgroundColor = [UIColor whiteColor];
+        self.tracker = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, -6, 3, CGRectGetHeight(self.frameView.frame) + 12)];
+        self.tracker.backgroundColor = self.trackerColor ? self.trackerColor : [UIColor whiteColor];
+        self.tracker.layer.masksToBounds = true;
+        self.tracker.layer.cornerRadius = 2;
         [self addSubview:self.tracker];
 
     }
