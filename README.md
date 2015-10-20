@@ -28,7 +28,6 @@ Create an instance of `ICGVideoTrimmer` using interface builder or programmatica
   [self.trimmerView setAsset:self.asset];
   [self.trimmerView setShowsRulerView:YES];
   [self.trimmerView setTrackerColor:[UIColor cyanColor]];
-  [self.trimmerView setShowsTracker:YES];
   [self.trimmerView setDelegate:self];
   [self.trimmerView resetSubviews];
  ```
