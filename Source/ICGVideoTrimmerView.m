@@ -76,6 +76,8 @@
 
 - (void)resetSubviews
 {
+    self.clipsToBounds = YES;
+
     [self setBackgroundColor:[UIColor blackColor]];
 
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
