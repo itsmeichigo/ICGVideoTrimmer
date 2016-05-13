@@ -11,10 +11,12 @@
 
 @protocol ICGVideoTrimmerDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ICGVideoTrimmerView : UIView
 
 // Video to be trimmed
-@property (strong, nonatomic) AVAsset *asset;
+@property (strong, nonatomic, nullable) AVAsset *asset;
 
 // Theme color for the trimmer view
 @property (strong, nonatomic) UIColor *themeColor;
@@ -32,10 +34,10 @@
 @property (assign, nonatomic) UIColor *trackerColor;
 
 // Custom image for the left thumb
-@property (strong, nonatomic) UIImage *leftThumbImage;
+@property (strong, nonatomic, nullable) UIImage *leftThumbImage;
 
 // Custom image for the right thumb
-@property (strong, nonatomic) UIImage *rightThumbImage;
+@property (strong, nonatomic, nullable) UIImage *rightThumbImage;
 
 // Custom width for the top and bottom borders
 @property (assign, nonatomic) CGFloat borderWidth;
@@ -43,11 +45,15 @@
 // Custom width for thumb
 @property (assign, nonatomic) CGFloat thumbWidth;
 
-@property (weak, nonatomic) IBOutlet id<ICGVideoTrimmerDelegate> delegate;
+@property (weak, nonatomic, nullable) id<ICGVideoTrimmerDelegate> delegate;
+
+- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
+
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithAsset:(AVAsset *)asset;
 
-- (instancetype)initWithFrame:(CGRect)frame asset:(AVAsset *)asset;
+- (instancetype)initWithFrame:(CGRect)frame asset:(AVAsset *)asset NS_DESIGNATED_INITIALIZER;
 
 - (void)resetSubviews;
 
@@ -57,8 +63,12 @@
 
 @end
 
+NS_ASSUME_NONNULL_END
+
 @protocol ICGVideoTrimmerDelegate <NSObject>
 
-- (void)trimmerView:(ICGVideoTrimmerView *)trimmerView didChangeLeftPosition:(CGFloat)startTime rightPosition:(CGFloat)endTime;
+- (void)trimmerView:(nonnull ICGVideoTrimmerView *)trimmerView didChangeLeftPosition:(CGFloat)startTime rightPosition:(CGFloat)endTime;
 
 @end
+
+

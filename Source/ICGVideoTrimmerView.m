@@ -41,6 +41,17 @@
 
 #pragma mark - Initiation
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    NSAssert(NO, nil);
+    @throw nil;
+}
+
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    return [super initWithCoder:aDecoder];
+}
+
 - (instancetype)initWithAsset:(AVAsset *)asset
 {
     return [self initWithFrame:CGRectZero asset:asset];
@@ -59,9 +70,9 @@
 
 #pragma mark - Private methods
 
-- (CGFloat)thumbWidth
+- (UIColor *)themeColor
 {
-    return _thumbWidth ?: 10;
+    return _themeColor ?: [UIColor lightGrayColor];
 }
 
 - (CGFloat)maxLength
@@ -72,6 +83,21 @@
 - (CGFloat)minLength
 {
     return _minLength ?: 3;
+}
+
+- (UIColor *)trackerColor
+{
+    return _trackerColor ?: [UIColor whiteColor];
+}
+
+- (CGFloat)borderWidth
+{
+    return _borderWidth ?: 1;
+}
+
+- (CGFloat)thumbWidth
+{
+    return _thumbWidth ?: 10;
 }
 
 - (void)resetSubviews
@@ -126,7 +152,7 @@
     }
     
     self.trackerView = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth, -5, 3, CGRectGetHeight(self.frameView.frame) + 10)];
-    self.trackerView.backgroundColor = self.trackerColor ? self.trackerColor : [UIColor whiteColor];
+    self.trackerView.backgroundColor = self.trackerColor;
     self.trackerView.layer.masksToBounds = true;
     self.trackerView.layer.cornerRadius = 2;
     [self addSubview:self.trackerView];
@@ -161,7 +187,7 @@
 
 - (void)updateBorderFrames
 {
-    CGFloat height = self.borderWidth ? self.borderWidth : 1;
+    CGFloat height = self.borderWidth;
     [self.topBorder setFrame:CGRectMake(CGRectGetMaxX(self.leftOverlayView.frame), 0, CGRectGetMinX(self.rightOverlayView.frame)-CGRectGetMaxX(self.leftOverlayView.frame), height)];
     [self.bottomBorder setFrame:CGRectMake(CGRectGetMaxX(self.leftOverlayView.frame), CGRectGetHeight(self.frameView.frame)-height, CGRectGetMinX(self.rightOverlayView.frame)-CGRectGetMaxX(self.leftOverlayView.frame), height)];
 }
