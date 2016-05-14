@@ -17,6 +17,17 @@
 
 @implementation ICGThumbView
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    NSAssert(NO, nil);
+    @throw nil;
+}
+
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    return [super initWithCoder:aDecoder];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame color:(UIColor *)color right:(BOOL)flag
 {
     self = [super initWithFrame:frame];

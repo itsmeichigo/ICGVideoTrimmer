@@ -8,12 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ICGThumbView : UIView
 
-@property (strong, nonatomic) UIColor *color;
+@property (strong, nonatomic, nullable) UIColor *color;
 
-- (instancetype)initWithFrame:(CGRect)frame color:(UIColor *)color right:(BOOL)flag;
+- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 
-- (instancetype)initWithFrame:(CGRect)frame thumbImage:(UIImage *)image;
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithFrame:(CGRect)frame color:(UIColor *)color right:(BOOL)flag NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithFrame:(CGRect)frame thumbImage:(UIImage *)image NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -10,6 +10,17 @@
 
 @implementation ICGRulerView
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    NSAssert(NO, nil);
+    @throw nil;
+}
+
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    return [super initWithCoder:aDecoder];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame widthPerSecond:(CGFloat)width themeColor:(UIColor *)color
 {
     self = [super initWithFrame:frame];
@@ -74,5 +85,18 @@
     }
     
 }
+
+#pragma mark - Private methods
+
+- (CGFloat)widthPerSecond
+{
+    return _widthPerSecond ?: 25.0;
+}
+
+- (UIColor *)themeColor
+{
+    return _themeColor ?: [UIColor lightGrayColor];
+}
+
 
 @end
