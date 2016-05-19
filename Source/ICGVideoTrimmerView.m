@@ -10,6 +10,24 @@
 #import "ICGThumbView.h"
 #import "ICGRulerView.h"
 
+
+
+@interface HitTestView : UIView
+@property (assign, nonatomic) UIEdgeInsets hitTestEdgeInsets;
+@end
+
+@implementation HitTestView
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    CGRect relativeFrame = self.bounds;
+    CGRect hitFrame = UIEdgeInsetsInsetRect(relativeFrame, _hitTestEdgeInsets);
+    return CGRectContainsPoint(hitFrame, point);
+}
+
+@end
+
+
 @interface ICGVideoTrimmerView() <UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIView *contentView;
@@ -17,8 +35,8 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) AVAssetImageGenerator *imageGenerator;
 
-@property (strong, nonatomic) UIView *leftOverlayView;
-@property (strong, nonatomic) UIView *rightOverlayView;
+@property (strong, nonatomic) HitTestView *leftOverlayView;
+@property (strong, nonatomic) HitTestView *rightOverlayView;
 @property (strong, nonatomic) ICGThumbView *leftThumbView;
 @property (strong, nonatomic) ICGThumbView *rightThumbView;
 
@@ -143,7 +161,8 @@
     self.overlayWidth =  CGRectGetWidth(self.frame) - (self.minLength * self.widthPerSecond);
 
     // add left overlay view
-    self.leftOverlayView = [[UIView alloc] initWithFrame:CGRectMake(self.thumbWidth - self.overlayWidth, 0, self.overlayWidth, CGRectGetHeight(self.frameView.frame))];
+    self.leftOverlayView = [[HitTestView alloc] initWithFrame:CGRectMake(self.thumbWidth - self.overlayWidth, 0, self.overlayWidth, CGRectGetHeight(self.frameView.frame))];
+    self.leftOverlayView.hitTestEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -60);
     CGRect leftThumbFrame = CGRectMake(self.overlayWidth-self.thumbWidth, 0, self.thumbWidth, CGRectGetHeight(self.frameView.frame));
     if (self.leftThumbImage) {
         self.leftThumbView = [[ICGThumbView alloc] initWithFrame:leftThumbFrame thumbImage:self.leftThumbImage];
@@ -167,7 +186,9 @@
 
     // add right overlay view
     CGFloat rightViewFrameX = CGRectGetWidth(self.frameView.frame) < CGRectGetWidth(self.frame) ? CGRectGetMaxX(self.frameView.frame) : CGRectGetWidth(self.frame) - self.thumbWidth;
-    self.rightOverlayView = [[UIView alloc] initWithFrame:CGRectMake(rightViewFrameX, 0, self.overlayWidth, CGRectGetHeight(self.frameView.frame))];
+    self.rightOverlayView = [[HitTestView alloc] initWithFrame:CGRectMake(rightViewFrameX, 0, self.overlayWidth, CGRectGetHeight(self.frameView.frame))];
+    self.rightOverlayView.hitTestEdgeInsets = UIEdgeInsetsMake(0, -60, 0, 0);
+
     if (self.rightThumbImage) {
         self.rightThumbView = [[ICGThumbView alloc] initWithFrame:CGRectMake(0, 0, self.thumbWidth, CGRectGetHeight(self.frameView.frame)) thumbImage:self.rightThumbImage];
     } else {
