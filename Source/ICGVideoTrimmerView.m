@@ -372,13 +372,15 @@
     CGFloat screenWidth = CGRectGetWidth(self.frame) - 2*self.thumbWidth; // quick fix to make up for the width of thumb views
     NSInteger actualFramesNeeded;
     
-    CGFloat frameViewFrameWidth = (duration / self.maxLength) * screenWidth;
+    CGFloat factor = (duration / self.maxLength);
+    factor = (factor < 1 ? 1 : factor);
+    CGFloat frameViewFrameWidth = factor * screenWidth;
     [self.frameView setFrame:CGRectMake(self.thumbWidth, 0, frameViewFrameWidth, CGRectGetHeight(self.frameView.frame))];
     CGFloat contentViewFrameWidth = CMTimeGetSeconds([self.asset duration]) <= self.maxLength + 0.5 ? screenWidth + 30 : frameViewFrameWidth;
     [self.contentView setFrame:CGRectMake(0, 0, contentViewFrameWidth, CGRectGetHeight(self.contentView.frame))];
     [self.scrollView setContentSize:self.contentView.frame.size];
     NSInteger minFramesNeeded = screenWidth / picWidth + 1;
-    actualFramesNeeded =  (duration / self.maxLength) * minFramesNeeded + 1;
+    actualFramesNeeded =  factor * minFramesNeeded + 1;
     
     Float64 durationPerFrame = duration / (actualFramesNeeded*1.0);
     self.widthPerSecond = frameViewFrameWidth / duration;
