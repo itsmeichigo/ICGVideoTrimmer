@@ -313,7 +313,16 @@
 
 - (void)hideTracker:(BOOL)flag
 {
-    self.trackerView.hidden = flag;
+    if ( flag == YES ){
+        self.trackerView.hidden = YES;
+    }
+    else{
+        self.trackerView.alpha = 0;
+        self.trackerView.hidden = NO;
+        [UIView animateWithDuration:.3 animations:^{
+            self.trackerView.alpha = 1;
+        }];
+    }
 }
 
 - (void)notifyDelegate
