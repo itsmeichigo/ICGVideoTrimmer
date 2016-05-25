@@ -277,11 +277,11 @@
                 
                 //------------------------------------------------------------------------------------------------------------
                 // Left
-                int deltaX = point.x - self.leftStartPoint.x;
+                CGFloat deltaX = point.x - self.leftStartPoint.x;
                 
                 CGPoint center = self.leftOverlayView.center;
-                
-                CGFloat newLeftViewMidX = center.x += deltaX;;
+                center.x += deltaX;
+                CGFloat newLeftViewMidX = center.x;
                 CGFloat maxWidth = CGRectGetMinX(self.rightOverlayView.frame) - (self.minLength * self.widthPerSecond);
                 CGFloat newLeftViewMinX = newLeftViewMidX - self.overlayWidth/2;
                 if (newLeftViewMinX < self.thumbWidth - self.overlayWidth) {
@@ -311,7 +311,8 @@
 
 - (void)seekToTime:(CGFloat) time
 {
-    BOOL animate = (fabs(_prevTrackerTime - time) > 1) ?  NO : YES;
+    CGFloat duration = fabs(_prevTrackerTime - time);
+    BOOL animate = (duration>1) ?  NO : YES;
     _prevTrackerTime = time;
     
     
@@ -320,9 +321,9 @@
     CGRect trackerFrame = self.trackerView.frame;
     trackerFrame.origin.x = posToMove;
     if (animate){
-        [UIView animateWithDuration:.1 animations:^{
+        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveLinear|UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.trackerView.frame = trackerFrame;
-        }];
+        } completion:nil ];
     }
     else{
         self.trackerView.frame = trackerFrame;
