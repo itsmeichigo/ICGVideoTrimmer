@@ -81,6 +81,7 @@
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
 {
+    _themeColor = [UIColor lightGrayColor];
     return [super initWithCoder:aDecoder];
 }
 
@@ -99,13 +100,20 @@
     return self;
 }
 
+- (void)setThemeColor:(UIColor *)themeColor {
+    _themeColor = themeColor;
+    
+    [self.bottomBorder setBackgroundColor:_themeColor];
+    [self.topBorder setBackgroundColor:_themeColor];
+}
+
 
 #pragma mark - Private methods
 
-- (UIColor *)themeColor
-{
-    return _themeColor ?: [UIColor lightGrayColor];
-}
+//- (UIColor *)themeColor
+//{
+//    return _themeColor ?: [UIColor lightGrayColor];
+//}
 
 - (CGFloat)maxLength
 {
@@ -487,5 +495,6 @@
     }
     [self notifyDelegate];
 }
+
 
 @end

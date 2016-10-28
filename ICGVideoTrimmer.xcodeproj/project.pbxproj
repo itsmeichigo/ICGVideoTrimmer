@@ -203,6 +203,7 @@
 				TargetAttributes = {
 					DE4F1F511A67C9BB00478F77 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 244E6KLL7T;
 					};
 					DE4F1F6A1A67C9BB00478F77 = {
 						CreatedOnToolsVersion = 6.1;
@@ -381,8 +382,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 244E6KLL7T;
 				INFOPLIST_FILE = ICGVideoTrimmer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.flavio.videoTrimmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -391,8 +394,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 244E6KLL7T;
 				INFOPLIST_FILE = ICGVideoTrimmer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.flavio.videoTrimmer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

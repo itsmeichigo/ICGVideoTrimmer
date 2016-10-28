@@ -47,6 +47,11 @@
     return self;
 }
 
+- (void)setColor:(UIColor *)color {
+    _color = color;
+    [self setNeedsDisplay];
+}
+
 //- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 //{
 //    CGRect relativeFrame = self.bounds;
@@ -83,9 +88,6 @@
         [decoratingPath fill];
 
     }
-    
-    
-    
 }
 
 
