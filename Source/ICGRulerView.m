@@ -31,7 +31,6 @@
     return self;
 }
 
-
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
@@ -51,39 +50,54 @@
     CGFloat majorY = baseY - majorTickLength;
     
     NSInteger step = 0;
+    BOOL shoudSkip = minorTickSpace < 4.75 ? YES : NO;
+    NSInteger skipCount = 5;
     for (CGFloat x = leftMargin; x <= (leftMargin + width); x += minorTickSpace) {
+        
         CGContextMoveToPoint(context, x, baseY);
         
-        CGContextSetFillColorWithColor(context, self.themeColor.CGColor);
-        if (step % multiple == 0) {
-            CGContextFillRect(context, CGRectMake(x, majorY, 1.75, majorTickLength));
-            
-            UIFont *font = [UIFont systemFontOfSize:11];
-            UIColor *textColor = self.themeColor;
-            NSDictionary *stringAttrs = @{NSFontAttributeName:font, NSForegroundColorAttributeName:textColor};
-            
-            NSInteger minutes = step / 60;
-            NSInteger seconds = step % 60;
-            
-            NSAttributedString* attrStr;
-            
-            if (minutes > 0) {
-                attrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld:%02ld", (long) minutes, (long) seconds] attributes:stringAttrs];
+        void (^drawElement)() = ^() {
+            CGContextSetFillColorWithColor(context, self.themeColor.CGColor);
+            if (step % multiple == 0) {
+                CGContextFillRect(context, CGRectMake(x, majorY, 1.75, majorTickLength));
+                
+                UIFont *font = [UIFont systemFontOfSize:11];
+                UIColor *textColor = self.themeColor;
+                NSDictionary *stringAttrs = @{NSFontAttributeName:font, NSForegroundColorAttributeName:textColor};
+                
+                NSInteger minutes = step / 60;
+                NSInteger seconds = step % 60;
+                
+                NSAttributedString* attrStr;
+                
+                if (minutes > 0) {
+                    attrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld:%02ld", (long) minutes, (long) seconds] attributes:stringAttrs];
+                }
+                else {
+                    attrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@":%02ld", (long) seconds] attributes:stringAttrs];
+                }
+                
+                [attrStr drawAtPoint:CGPointMake(x-7, majorY - 15)];
+                
+                
+            } else {
+                CGContextFillRect(context, CGRectMake(x, minorY, 1.0, minorTickLength));
             }
-            else {
-                attrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@":%02ld", (long) seconds] attributes:stringAttrs];
-            }
-            
-            [attrStr drawAtPoint:CGPointMake(x-7, majorY - 15)];
-            
+        };
+        
+        
+        if (!shoudSkip) {
+            drawElement();
+        } else if (shoudSkip && skipCount == 5) {
+            skipCount = 0;
+            drawElement();
             
         } else {
-            CGContextFillRect(context, CGRectMake(x, minorY, 1.0, minorTickLength));
+            skipCount++;
         }
         
         step++;
     }
-    
 }
 
 #pragma mark - Private methods
