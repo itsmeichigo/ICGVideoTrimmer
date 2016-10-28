@@ -102,9 +102,11 @@
 
 - (void)setThemeColor:(UIColor *)themeColor {
     _themeColor = themeColor;
-    
+
     [self.bottomBorder setBackgroundColor:_themeColor];
     [self.topBorder setBackgroundColor:_themeColor];
+    self.leftThumbView.color = _themeColor;
+    self.rightThumbView.color = _themeColor;
 }
 
 
