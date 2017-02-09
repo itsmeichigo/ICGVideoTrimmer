@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL showsRulerView;
 
 // Customize color for tracker
-@property (assign, nonatomic) UIColor *trackerColor;
+@property (strong, nonatomic) UIColor *trackerColor;
 
 // Custom image for the left thumb
 @property (strong, nonatomic, nullable) UIImage *leftThumbImage;
