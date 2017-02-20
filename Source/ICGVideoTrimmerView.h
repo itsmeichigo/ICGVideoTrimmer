@@ -68,6 +68,7 @@ NS_ASSUME_NONNULL_END
 @protocol ICGVideoTrimmerDelegate <NSObject>
 
 - (void)trimmerView:(nonnull ICGVideoTrimmerView *)trimmerView didChangeLeftPosition:(CGFloat)startTime rightPosition:(CGFloat)endTime;
+- (void)trimmerViewDidEndEditing:(nonnull ICGVideoTrimmerView *)trimmerView;
 
 @end
 
