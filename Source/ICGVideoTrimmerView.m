@@ -141,6 +141,12 @@
 {
     return _thumbWidth ?: 10;
 }
+
+- (NSInteger) rulerLabelInterval
+{
+    return _rulerLabelInterval ?: 5;
+}
+
 #define EDGE_EXTENSION_FOR_THUMB 30
 - (void)resetSubviews
 {
@@ -168,7 +174,7 @@
     
     if (self.showsRulerView) {
         CGRect rulerFrame = CGRectMake(0, CGRectGetHeight(self.contentView.frame)*0.7, CGRectGetWidth(self.contentView.frame)+self.thumbWidth, CGRectGetHeight(self.contentView.frame)*0.3);
-        ICGRulerView *rulerView = [[ICGRulerView alloc] initWithFrame:rulerFrame widthPerSecond:self.widthPerSecond themeColor:self.themeColor];
+        ICGRulerView *rulerView = [[ICGRulerView alloc] initWithFrame:rulerFrame widthPerSecond:self.widthPerSecond themeColor:self.themeColor labelInterval:self.rulerLabelInterval];
         [self.contentView addSubview:rulerView];
     }
     
@@ -227,7 +233,7 @@
     [self addGestureRecognizer:panGestureRecognizer];
     
     [self updateBorderFrames];
-    [self notifyDelegate];
+    [self notifyDelegateOfDidChange];
 }
 
 - (void)updateBorderFrames
@@ -308,13 +314,13 @@
             
             
             [self updateBorderFrames];
-            [self notifyDelegate];
+            [self notifyDelegateOfDidChange];
             
             break;
         }
         case UIGestureRecognizerStateEnded:
         {
-            [self.delegate trimmerViewDidEndEditing:self];
+            [self notifyDelegateOfEndEditing];
         }
             
         default:
@@ -359,7 +365,7 @@
     }
 }
 
-- (void)notifyDelegate
+- (void)notifyDelegateOfDidChange
 {
     NSLog(@"leftOverlayView:%f , rightOverlayView:%f contentOffset.x:%@", CGRectGetMaxX(self.leftOverlayView.frame) , CGRectGetMaxX(self.rightOverlayView.frame) , @(self.scrollView.contentOffset.x));
     
@@ -380,8 +386,18 @@
     self.startTime = start;
     self.endTime = end;
     
-    
-    [self.delegate trimmerView:self didChangeLeftPosition:self.startTime rightPosition:self.endTime];
+    if([self.delegate respondsToSelector:@selector(trimmerView:didChangeLeftPosition:rightPosition:)])
+    {
+        [self.delegate trimmerView:self didChangeLeftPosition:self.startTime rightPosition:self.endTime];
+    }
+}
+
+-(void) notifyDelegateOfEndEditing
+{
+    if([self.delegate respondsToSelector:@selector(trimmerViewDidEndEditing:)])
+    {
+        [self.delegate trimmerViewDidEndEditing:self];
+    }
 }
 
 - (void)addFrames
@@ -499,12 +515,12 @@
             [scrollView setContentOffset:CGPointZero];
         }];
     }
-    [self notifyDelegate];
+    [self notifyDelegateOfDidChange];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [self.delegate trimmerViewDidEndEditing:self];
+    [self notifyDelegateOfEndEditing];
 }
 
 

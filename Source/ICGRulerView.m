@@ -21,12 +21,13 @@
     return [super initWithCoder:aDecoder];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame widthPerSecond:(CGFloat)width themeColor:(UIColor *)color
+- (instancetype)initWithFrame:(CGRect)frame widthPerSecond:(CGFloat)width themeColor:(UIColor *)color labelInterval:(NSInteger)interval
 {
     self = [super initWithFrame:frame];
     if (self) {
         _widthPerSecond = width;
         _themeColor = color;
+        _labelInterval = interval;
     }
     return self;
 }
@@ -41,7 +42,7 @@
     CGFloat height = CGRectGetHeight(self.frame);
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat minorTickSpace = self.widthPerSecond;
-    NSInteger multiple = 5;
+    NSInteger multiple = _labelInterval;
     CGFloat majorTickLength = 12;
     CGFloat minorTickLength = 7;
     
