@@ -312,6 +312,10 @@
             
             break;
         }
+        case UIGestureRecognizerStateEnded:
+        {
+            [self.delegate trimmerViewDidEndEditing:self];
+        }
             
         default:
             break;
@@ -496,6 +500,11 @@
         }];
     }
     [self notifyDelegate];
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self.delegate trimmerViewDidEndEditing:self];
 }
 
 
