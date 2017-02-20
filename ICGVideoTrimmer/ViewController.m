@@ -102,6 +102,7 @@
     [self.trimmerView setThemeColor:[UIColor lightGrayColor]];
     [self.trimmerView setAsset:self.asset];
     [self.trimmerView setShowsRulerView:YES];
+    [self.trimmerView setRulerLabelInterval:10];
     [self.trimmerView setTrackerColor:[UIColor cyanColor]];
     [self.trimmerView setDelegate:self];
     
