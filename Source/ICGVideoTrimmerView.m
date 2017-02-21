@@ -150,7 +150,10 @@
 #define EDGE_EXTENSION_FOR_THUMB 30
 - (void)resetSubviews
 {
-    self.clipsToBounds = YES;
+    CALayer *sideMaskingLayer = [CALayer new];
+    sideMaskingLayer.backgroundColor = [UIColor blackColor].CGColor;
+    sideMaskingLayer.frame = CGRectMake(0, -10, self.frame.size.width, self.frame.size.height + 20);
+    self.layer.mask = sideMaskingLayer;
     
     [self setBackgroundColor:[UIColor blackColor]];
     
