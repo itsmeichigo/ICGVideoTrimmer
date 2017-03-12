@@ -32,6 +32,8 @@
 @property (assign, nonatomic) CGFloat startTime;
 @property (assign, nonatomic) CGFloat stopTime;
 
+@property (assign, nonatomic) BOOL restartOnPlay;
+
 @end
 
 @implementation ViewController
@@ -52,12 +54,23 @@
 
 - (void)trimmerView:(ICGVideoTrimmerView *)trimmerView didChangeLeftPosition:(CGFloat)startTime rightPosition:(CGFloat)endTime
 {
+    _restartOnPlay = YES;
+    [self.player pause];
+    self.isPlaying = NO;
+    [self stopPlaybackTimeChecker];
+
+    [self.trimmerView hideTracker:true];
+
     if (startTime != self.startTime) {
         //then it moved the left position, we should rearrange the bar
         [self seekVideoToPos:startTime];
     }
+    else{ // right has changed
+        [self seekVideoToPos:endTime];
+    }
     self.startTime = startTime;
     self.stopTime = endTime;
+
 }
 
 
@@ -89,6 +102,7 @@
     [self.trimmerView setThemeColor:[UIColor lightGrayColor]];
     [self.trimmerView setAsset:self.asset];
     [self.trimmerView setShowsRulerView:YES];
+    [self.trimmerView setRulerLabelInterval:10];
     [self.trimmerView setTrackerColor:[UIColor cyanColor]];
     [self.trimmerView setDelegate:self];
     
@@ -199,6 +213,11 @@
         [self.player pause];
         [self stopPlaybackTimeChecker];
     }else {
+        if (_restartOnPlay){
+            [self seekVideoToPos: self.startTime];
+            [self.trimmerView seekToTime:self.startTime];
+            _restartOnPlay = NO;
+        }
         [self.player play];
         [self startPlaybackTimeChecker];
     }
@@ -225,9 +244,14 @@
 
 - (void)onPlaybackTimeCheckerTimer
 {
-    self.videoPlaybackPosition = CMTimeGetSeconds([self.player currentTime]);
+    CMTime curTime = [self.player currentTime];
+    Float64 seconds = CMTimeGetSeconds(curTime);
+    if (seconds < 0){
+        seconds = 0; // this happens! dont know why.
+    }
+    self.videoPlaybackPosition = seconds;
 
-    [self.trimmerView seekToTime:CMTimeGetSeconds([self.player currentTime])];
+    [self.trimmerView seekToTime:seconds];
     
     if (self.videoPlaybackPosition >= self.stopTime) {
         self.videoPlaybackPosition = self.startTime;
@@ -240,6 +264,7 @@
 {
     self.videoPlaybackPosition = pos;
     CMTime time = CMTimeMakeWithSeconds(self.videoPlaybackPosition, self.player.currentTime.timescale);
+    //NSLog(@"seekVideoToPos time:%.2f", CMTimeGetSeconds(time));
     [self.player seekToTime:time toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 }
 
