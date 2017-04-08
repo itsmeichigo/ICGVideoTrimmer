@@ -22,6 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet ICGVideoTrimmerView *trimmerView;
 @property (weak, nonatomic) IBOutlet UIButton *trimButton;
+@property (weak, nonatomic) IBOutlet UIButton *changePositionButton;
+
 @property (weak, nonatomic) IBOutlet UIView *videoPlayer;
 @property (weak, nonatomic) IBOutlet UIView *videoLayer;
 
@@ -110,6 +112,7 @@
     [self.trimmerView resetSubviews];
     
     [self.trimButton setHidden:NO];
+    [self.changePositionButton setHidden:NO];
 }
 
 
@@ -189,6 +192,32 @@
         
     }
 }
+
+- (IBAction)changeTrimPosition:(id)sender {
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Change position" message:@"You can change the trim position by manually entereing the start and end time" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Start time";
+    }];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"End time";
+    }];
+    
+    UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"Change" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        double  startTime = [alert.textFields.firstObject.text doubleValue];
+        double  endTime = [alert.textFields.lastObject.text doubleValue];
+        [_trimmerView setVideoBoundsToStartTime:startTime endTime:endTime];
+        
+        
+    }];
+    
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alert addAction:changeAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
 
 - (void)video:(NSString*)videoPath didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo {
     if (error) {
