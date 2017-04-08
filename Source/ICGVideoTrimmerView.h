@@ -64,6 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)hideTracker:(BOOL)flag;
 
+-(void)setVideoBoundsToStartTime:(CGFloat)startTime endTime:(CGFloat)endTime;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
