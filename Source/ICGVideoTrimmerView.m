@@ -368,6 +368,68 @@
     }
 }
 
+-(void)setVideoBoundsToStartTime:(CGFloat)startTime endTime:(CGFloat)endTime
+{
+    //Validating the inputs.
+    if(startTime < 0 || endTime < 0 || startTime>=endTime || endTime>CMTimeGetSeconds([self.asset duration]) || (endTime-startTime)<self.minLength || (endTime-startTime)>self.maxLength)
+            return;
+
+    
+    float newLeftOverlayViewMidX = [self getMiddleXPointForLeftOverlayViewWithTime:startTime];
+    self.leftOverlayView.center = CGPointMake(newLeftOverlayViewMidX, self.leftOverlayView.center.y);
+    
+    float newRightOverlayVideMidX = [self getMiddleXPointForRightOverlayViewWithTime:endTime];
+    self.rightOverlayView.center = CGPointMake(newRightOverlayVideMidX, self.rightOverlayView.center.y);
+    
+     [self notifyDelegateOfDidChange];
+}
+
+
+-(float)getMiddleXPointForLeftOverlayViewWithTime:(float)time
+{
+    CGFloat leftOverlayViewNewX = ((((self.scrollView.contentOffset.x -self.thumbWidth) / self.widthPerSecond) - time)* self.widthPerSecond)*-1 ;
+    
+    CGFloat leftOverlayViewOldX = CGRectGetMaxX(self.leftOverlayView.frame);
+    
+    int deltaX =  leftOverlayViewNewX-leftOverlayViewOldX;
+    CGPoint center = _leftOverlayView.center;
+    
+    CGFloat newLeftViewMidX = center.x += deltaX;;
+    CGFloat maxWidth = CGRectGetMinX(_rightOverlayView.frame) - (_minLength * _widthPerSecond);
+    CGFloat newLeftViewMinX = newLeftViewMidX - _overlayWidth/2;
+    if (newLeftViewMinX < _thumbWidth - _overlayWidth) {
+        newLeftViewMidX = _thumbWidth - _overlayWidth + _overlayWidth/2;
+    } else if (newLeftViewMinX + _overlayWidth > maxWidth) {
+        newLeftViewMidX = maxWidth - _overlayWidth / 2;
+    }
+    if (!self.trackerView.hidden && time != self.startTime) {
+        [self seekToTime:time];
+    }
+    return newLeftViewMidX;
+    
+}
+-(float)getMiddleXPointForRightOverlayViewWithTime:(float)time
+{
+    CGFloat rightOverlayViewNewX = ((((self.scrollView.contentOffset.x -self.thumbWidth) / self.widthPerSecond) - time)* self.widthPerSecond)*-1 ;
+    
+    CGFloat rightOverlayViewOldX = CGRectGetMinX(self.rightOverlayView.frame);
+    
+    int rightDeltaX = rightOverlayViewNewX - rightOverlayViewOldX;
+    
+    CGPoint rightCenter = self.rightOverlayView.center;
+    
+    CGFloat newRightViewMidX = rightCenter.x += rightDeltaX;
+    CGFloat minX = CGRectGetMaxX(self.leftOverlayView.frame) + self.minLength * self.widthPerSecond;
+    CGFloat maxX = CMTimeGetSeconds([self.asset duration]) <= self.maxLength + 0.5 ? CGRectGetMaxX(self.frameView.frame) : CGRectGetWidth(self.frame) - self.thumbWidth;
+    if (newRightViewMidX - self.overlayWidth/2 < minX) {
+        newRightViewMidX = minX + self.overlayWidth/2;
+    } else if (newRightViewMidX - self.overlayWidth/2 > maxX) {
+        newRightViewMidX = maxX + self.overlayWidth/2;
+    }
+    
+    return newRightViewMidX;
+}
+
 - (void)notifyDelegateOfDidChange
 {
     NSLog(@"leftOverlayView:%f , rightOverlayView:%f contentOffset.x:%@", CGRectGetMaxX(self.leftOverlayView.frame) , CGRectGetMaxX(self.rightOverlayView.frame) , @(self.scrollView.contentOffset.x));
