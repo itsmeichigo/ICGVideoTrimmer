@@ -196,15 +196,24 @@
 - (IBAction)changeTrimPosition:(id)sender {
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Change position" message:@"You can change the trim position by manually entereing the start and end time" preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"Start time";
+        [textField setPlaceholder:@"Start time"];
+        [textField setKeyboardType:UIKeyboardTypeDecimalPad];
     }];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"End time";
+        [textField setPlaceholder:@"End time"];
+        [textField setKeyboardType:UIKeyboardTypeDecimalPad];
+
     }];
     
     UIAlertAction * changeAction = [UIAlertAction actionWithTitle:@"Change" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        double  startTime = [alert.textFields.firstObject.text doubleValue];
-        double  endTime = [alert.textFields.lastObject.text doubleValue];
+        NSString * startTimeString = alert.textFields.firstObject.text;
+        NSString * endTimeString = alert.textFields.lastObject.text;
+        double startTime = 0, endTime = CMTimeGetSeconds(_asset.duration);
+        if([startTimeString length]>0)
+            startTime = [alert.textFields.firstObject.text doubleValue];
+        if([endTimeString length]>0)
+              endTime = [alert.textFields.lastObject.text doubleValue];
+        
         [_trimmerView setVideoBoundsToStartTime:startTime endTime:endTime];
         
         
