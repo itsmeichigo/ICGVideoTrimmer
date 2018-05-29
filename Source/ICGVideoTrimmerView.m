@@ -436,6 +436,9 @@
     }
     
     Float64 duration = CMTimeGetSeconds([self.asset duration]);
+    if (duration > self.maxLength) {
+        duration = self.maxLength;
+    }
     CGFloat screenWidth = CGRectGetWidth(self.frame) - 2*self.thumbWidth; // quick fix to make up for the width of thumb views
     NSInteger actualFramesNeeded;
     
