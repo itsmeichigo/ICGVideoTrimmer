@@ -385,7 +385,14 @@
         NSLog(@"no change");
         return;
     }
-    
+    /*
+     修复末尾裁剪视频时间不正确bug
+     start开始时间最大值为视频结束时间减去所设置的截取时间最大值
+     */
+    CGFloat startMax = end - self.maxLength;
+    if (start - startMax > 0.001) {
+        start = startMax;
+    }
     self.startTime = start;
     self.endTime = end;
     
